@@ -1,0 +1,17 @@
+node_modules/
+.output/
+dist/
+.vercel/
+.tanstack/
+.node_modules.lock
+# Local-only working files — not part of the site
+artifacts/
+attachments/
+migrations/
+# Keep the app's build-flag file (no secrets) so CI builds match local ones.
+.grok/*
+!.grok/app-env.json
+screenshots/
+.vite/
+*.log
+.DS_Store
