@@ -113,7 +113,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="flex flex-col items-center gap-4 text-center">
           <VisitorCounter />
           <p className="max-w-xl text-xs leading-snug text-muted">
-            © 1998–2026 {site.name}. This page is a loving 90s tribute, not an actual 1998 server.
             Unauthorized vulnerability testing of this guestbook is still unauthorized.
           </p>
         </div>
