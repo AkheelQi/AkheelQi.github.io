@@ -427,9 +427,9 @@ export const aiQuotes = [
  */
 export const mood = {
   artist: "Radiohead",
-  song: "No Surprises",
-  youtubeId: "u5CVsCnxyXg",
-  quote: "No alarms and no surprises.",
+  song: "Fake Plastic Trees",
+  youtubeId: "n5h0qHwNrHk",
+  quote: "It wears her out.",
 };
 
 export const seedGuestbook = [
