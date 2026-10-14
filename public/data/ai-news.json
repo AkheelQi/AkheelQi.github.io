@@ -1,30 +1,30 @@
 [
   {
-    "title": "The maker of non-text AI model Jev valued…",
-    "summary": "What has users and large corporations so excited about Jev is TypeSafe’s claim that it works significantly faster and uses far fewer tokens than LLMs.",
-    "source_url": "https://techcrunch.com/2026/10/09/the-maker-of-non-text-ai-model-jev-valued-at-7-5b-just-weeks-after-launch/",
-    "image_url": "https://techcrunch.com/wp-content/uploads/2026/09/typesafe-ai.jpg?resize=1174,1200",
-    "date": "Oct 09, 2026"
+    "title": "Gemini 4 Argon is now available for everyone",
+    "summary": "Google opens its latest frontier model to developers, enterprises, and Gemini app subscribers worldwide. Argon runs a 1M unified input-output token limit and launches at an introductory $2 per million input tokens.",
+    "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+    "image_url": "https://placehold.co/600x800/0c1a2e/c9a227?text=Gemini+4%0AArgon&font=playfair-display",
+    "date": "Oct 13, 2026"
   },
   {
-    "title": "Amazon drops data center NDAs, and AI agents…",
-    "summary": "Amazon says it will stop using NDAs when negotiating data center deals with local governments, following a similar move from Microsoft earlier this year.",
-    "source_url": "https://techcrunch.com/podcast/amazon-drops-data-center-ndas-and-ai-agents-want-your-credit-card/",
-    "image_url": "https://techcrunch.com/wp-content/uploads/2026/09/5-DSCF1634.jpg?resize=1200,800",
-    "date": "Oct 09, 2026"
+    "title": "Meta's Muse Wonder aims at personal superintelligence",
+    "summary": "Meta ships Muse Wonder and Muse Wonder Full with Active Memory and Active Focus — the most capable models yet on personal and professional agentic tasks, trained at gigawatt scale.",
+    "source_url": "https://research.meta.ai/blog/muse-wonder",
+    "image_url": "https://placehold.co/600x800/1a1030/c9a227?text=Muse+Wonder&font=playfair-display",
+    "date": "Oct 12, 2026"
   },
   {
-    "title": "Fired OpenAI safety researchers dispute misconduct claims, warn…",
-    "summary": "Three fired OpenAI safety researchers dispute allegations of mishandling sensitive information, warning in an open letter that their dismissals are creating a chilling effect on the company’s AI safety culture.",
-    "source_url": "https://techcrunch.com/2026/10/08/fired-openai-safety-researchers-dispute-misconduct-claims-warn-of-chilling-effect/",
-    "image_url": "https://techcrunch.com/wp-content/uploads/2026/09/openai-getty.jpg?resize=1200,800",
-    "date": "Oct 08, 2026"
+    "title": "GPT-6 and Intelligent UI for everyone",
+    "summary": "OpenAI brings GPT-6 to more than 1.2 billion weekly ChatGPT users. Intelligent UI lets answers compose graphics, tappable buttons, forms, and charts inside the conversation.",
+    "source_url": "https://openai.com/index/gpt-6-for-everyone/",
+    "image_url": "https://placehold.co/600x800/0f1f14/c9a227?text=GPT-6%0AIntelligent+UI&font=playfair-display",
+    "date": "Oct 7, 2026"
   },
   {
-    "title": "Can the AI industry persuade data center opponents…",
-    "summary": "On Equity, we debate the impact of data center moratoriums and whether the AI industry has a communication problem.",
-    "source_url": "https://techcrunch.com/2026/10/11/can-the-ai-industry-persuade-data-center-opponents-by-getting-rid-of-ndas/",
-    "image_url": "https://techcrunch.com/wp-content/uploads/2026/09/9-DSCF1649.jpg?resize=800,1200",
-    "date": "Oct 11, 2026"
+    "title": "Claude Haiku 5.5 is out",
+    "summary": "Anthropic releases Claude Haiku 5.5 — the fast tier of the Claude family gets a full point release as Mistral simultaneously ships Large 4.",
+    "source_url": "https://llm-stats.com/llm-updates",
+    "image_url": "https://placehold.co/600x800/3a1020/c9a227?text=Claude%0AHaiku+5.5&font=playfair-display",
+    "date": "Oct 7, 2026"
   }
 ]

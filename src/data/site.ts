@@ -381,6 +381,26 @@ export const gear = [
 
 export const news = [
   {
+    date: "OCT 2026",
+    headline: "Gemini 4 Argon ships for everyone",
+    body: "Google's frontier model hits the API, AI Studio, and the Gemini app worldwide — 1M unified context, intro pricing $2/M input.",
+  },
+  {
+    date: "OCT 2026",
+    headline: "Meta drops Muse Wonder",
+    body: "Active Memory + Active Focus. Meta calls it a leap toward personal superintelligence; Muse Code gets it first.",
+  },
+  {
+    date: "OCT 2026",
+    headline: "GPT-6 Intelligent UI for all ChatGPT users",
+    body: "OpenAI rolls GPT-6 to free tiers — responses compose interactive UIs, charts, and forms mid-answer.",
+  },
+  {
+    date: "OCT 2026",
+    headline: "Claude Haiku 5.5 + Mistral Large 4",
+    body: "Small-model week: Anthropic's Haiku gets a 5.5 drop; Mistral answers with Large 4.",
+  },
+  {
     date: "SEP 2026",
     headline: "Official site goes live — gold vinyl edition",
     body: "The webmaster finally finished the frames. Guestbook is open. Let us Chat",

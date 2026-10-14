@@ -1,288 +1,251 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell, PageTitle } from "@/components/site-shell";
-import { BookReader } from "@/components/book-reader";
-import {
-  addBook,
-  deleteBook,
-  fileKind,
-  formatSize,
-  listBooks,
-  type ShelfBook,
-} from "@/lib/books";
 
 export const Route = createFileRoute("/books")({ component: Books });
 
-const SPINE_COLORS = [
-  "#7a2e38",
-  "#5c1f28",
-  "#8a6a1f",
-  "#6e5a2a",
-  "#2a4a3a",
-  "#243a52",
-  "#4a2a4a",
-  "#3a3a2e",
+type ShelfBook = {
+  id: string;
+  title: string;
+  author: string;
+  year: string;
+  notes: string;
+  bg: string;
+  fg: string;
+  spine: string;
+};
+
+const SHELF: ShelfBook[] = [
+  {
+    id: "wahh",
+    title: "The Web Application Hacker's Handbook",
+    author: "Stuttard & Pinto",
+    year: "2011",
+    notes: "Still the bible of web app testing. Chapters on XSS and CSRF live rent-free.",
+    bg: "#1a2744",
+    fg: "#f3e6c4",
+    spine: "#0e1628",
+  },
+  {
+    id: "bhp",
+    title: "Black Hat Python",
+    author: "Justin Seitz",
+    year: "2014",
+    notes: "Python for pentesters — network tools, attackers, and the dark arts of sockets.",
+    bg: "#0f1f14",
+    fg: "#c9e0c9",
+    spine: "#08120c",
+  },
+  {
+    id: "hacking",
+    title: "Hacking: The Art of Exploitation",
+    author: "Jon Erickson",
+    year: "2008",
+    notes: "Stack overflows, format strings, and why the machine does what you tell it.",
+    bg: "#2a1810",
+    fg: "#f0d060",
+    spine: "#150c08",
+  },
+  {
+    id: "tangled",
+    title: "The Tangled Web",
+    author: "Michal Zalewski",
+    year: "2011",
+    notes: "Browser security from first principles. Zalewski at his most terrifying.",
+    bg: "#1c1030",
+    fg: "#d4c4f0",
+    spine: "#0e0818",
+  },
+  {
+    id: "ghost",
+    title: "Ghost in the Wires",
+    author: "Kevin Mitnick",
+    year: "2011",
+    notes: "Social engineering memoir. The most wanted hacker never cracked a crypto.",
+    bg: "#3a1020",
+    fg: "#f3e6c4",
+    spine: "#1e0810",
+  },
+  {
+    id: "metasploit",
+    title: "Metasploit: The Penetration Tester's Guide",
+    author: "Kennedy et al.",
+    year: "2011",
+    notes: "The framework that turned exploit delivery into an industry.",
+    bg: "#4a2010",
+    fg: "#f5d0a0",
+    spine: "#261008",
+  },
+  {
+    id: "deception",
+    title: "The Art of Deception",
+    author: "Kevin Mitnick",
+    year: "2002",
+    notes: "People are the weakest link. Mitnick proved it before phishing was a word.",
+    bg: "#102830",
+    fg: "#a8dce8",
+    spine: "#081418",
+  },
+  {
+    id: "ai-super",
+    title: "AI Superpowers",
+    author: "Kai-Fu Lee",
+    year: "2018",
+    notes: "China vs Silicon Valley in the race for AI. Still the best popular intro.",
+    bg: "#3a2808",
+    fg: "#f0d060",
+    spine: "#1e1404",
+  },
+  {
+    id: "human-compatible",
+    title: "Human Compatible",
+    author: "Stuart Russell",
+    year: "2019",
+    notes: "How to build AI that stays useful without maximizing the wrong objective.",
+    bg: "#0c2038",
+    fg: "#c4dcf5",
+    spine: "#06101c",
+  },
+  {
+    id: "deep-learning",
+    title: "Deep Learning",
+    author: "Goodfellow, Bengio & Courville",
+    year: "2016",
+    notes: "The textbook. Heavy. Worth every page if you care how the sausage is made.",
+    bg: "#1a1a1a",
+    fg: "#c9a227",
+    spine: "#0c0c0c",
+  },
 ];
 
-function spineHash(title: string): number {
-  let h = 0;
-  for (let i = 0; i < title.length; i++) h = (h * 31 + title.charCodeAt(i)) >>> 0;
-  return h;
-}
-
-function Books() {
-  const [books, setBooks] = useState<ShelfBook[]>([]);
-  const [query, setQuery] = useState("");
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [reading, setReading] = useState<ShelfBook | null>(null);
-
-  const refresh = useCallback(async () => {
-    try {
-      setBooks(await listBooks());
-    } catch {
-      setBooks([]);
-    }
-    setLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    void refresh();
-  }, [refresh]);
-
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    const file = fd.get("file");
-    if (!(file instanceof File) || file.size === 0) {
-      setError("Pick a file — a shelf without books is just furniture.");
-      return;
-    }
-    setError("");
-    setBusy(true);
-    try {
-      await addBook({
-        title: String(fd.get("title") ?? ""),
-        author: String(fd.get("author") ?? ""),
-        year: String(fd.get("year") ?? ""),
-        notes: String(fd.get("notes") ?? ""),
-        file,
-      });
-      form.reset();
-      await refresh();
-    } catch {
-      setError("The shelf refused the donation — browser storage may be full.");
-      await refresh();
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function onDelete(book: ShelfBook) {
-    if (!window.confirm(`Burn "${book.title}" from the shelf?`)) return;
-    await deleteBook(book.id);
-    if (reading?.id === book.id) setReading(null);
-    await refresh();
-  }
-
-  const visible = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return books;
-    return books.filter((b) =>
-      [b.title, b.author, b.notes, b.fileName].some((s) => s.toLowerCase().includes(q)),
-    );
-  }, [books, query]);
-
+function CoverArt({ book }: { book: ShelfBook }) {
   return (
-    <SiteShell>
-      <PageTitle kicker="THE SHELF" title="BOOKS" />
-      <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-muted">
-        Stacked the old way. Hover a spine for the dossier — click it and the book opens right
-        here: cover first, then page by page with the buttons, arrow keys, or a swipe. Uploads
-        stay in this browser, no server, no overdue fees.
-      </p>
-
-      {loaded && books.length > 0 ? (
-        <label className="mx-auto mb-8 block max-w-md text-xs tracking-[0.2em] text-gold">
-          SEARCH THE SHELF
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="inset-field mt-1 min-h-11 w-full bg-ink px-3 text-sm text-cream"
-            placeholder="title, author, notes…"
-          />
-        </label>
-      ) : null}
-
-      {loaded && books.length === 0 ? (
-        <div className="mx-auto max-w-xl border border-dashed border-gold/60 bg-ink-soft p-10 text-center">
-          <p className="font-display text-lg tracking-[0.25em] text-gold-bright">SHELF EMPTY</p>
-          <p className="mt-3 text-sm text-muted">
-            Nothing here yet. Upload a PDF below — it gets a spine, a cover, and a reader. It
-            stays on this machine, like the guestbook, forever.
-          </p>
-        </div>
-      ) : null}
-
-      {visible.length > 0 ? (
-        <div className="mx-auto mb-12 max-w-4xl">
-          <div className="flex flex-wrap items-end justify-center">
-            {visible.map((book) => {
-              const h = spineHash(book.title);
-              const color = SPINE_COLORS[h % SPINE_COLORS.length];
-              const height = 150 + (h % 5) * 14;
-              const width = 30 + (h % 3) * 5;
-              return (
-                <div key={book.id} className="group relative">
-                  {/* hover dossier */}
-                  <div className="pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 w-64 max-w-[72vw] -translate-x-1/2 border border-gold bg-ink p-3 opacity-0 shadow-[0_12px_34px_rgba(0,0,0,0.65)] transition duration-200 group-hover:opacity-100 group-focus-within:opacity-100">
-                    <p className="font-display text-xs tracking-[0.16em] text-gold-bright">
-                      {book.title}
-                    </p>
-                    <p className="mt-1 text-2xs text-cream">
-                      {book.author}
-                      {book.year ? ` · ${book.year}` : ""}
-                    </p>
-                    {book.notes ? (
-                      <p className="mt-2 line-clamp-3 text-2xs leading-relaxed text-muted">
-                        {book.notes}
-                      </p>
-                    ) : null}
-                    <p className="mt-2 text-2xs tracking-[0.15em] text-gold">
-                      {fileKind(book)} · {formatSize(book.size)} ·{" "}
-                      {isReadableLabel(book)} · CLICK TO OPEN
-                    </p>
-                    <div className="pointer-events-auto mt-2 flex gap-2">
-                      <button
-                        type="button"
-                        onClick={() => void onDelete(book)}
-                        className="min-h-8 border border-oxblood px-2 font-display text-2xs tracking-[0.18em] text-oxblood hover:bg-oxblood hover:text-cream"
-                      >
-                        BURN
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* the spine */}
-                  <button
-                    type="button"
-                    onClick={() => setReading(book)}
-                    aria-label={`Open ${book.title} by ${book.author}`}
-                    style={{ background: color, height, width }}
-                    className="relative flex items-center justify-center border-x border-black/40 transition-transform duration-200 group-hover:-translate-y-2.5 focus-visible:-translate-y-2.5 focus-visible:outline focus-visible:outline-gold"
-                  >
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, rgba(0,0,0,0.4), transparent 28%, transparent 72%, rgba(0,0,0,0.45))",
-                      }}
-                    />
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-1 top-2 h-px bg-gold/70"
-                    />
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-1 bottom-3 h-px bg-gold/70"
-                    />
-                    <span
-                      className="relative line-clamp-2 px-1 font-display text-2xs tracking-[0.08em] text-cream/95"
-                      style={{ writingMode: "vertical-rl" }}
-                    >
-                      {book.title}
-                    </span>
-                  </button>
-                  {/* shelf plank under this spine */}
-                  <div className="h-0 border-b-2 border-gold/80" />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
-
-      {loaded && books.length > 0 && visible.length === 0 ? (
-        <p className="mb-10 text-center text-sm text-muted">No volume matches “{query}”.</p>
-      ) : null}
-
-      {/* donate form */}
-      <form
-        onSubmit={onSubmit}
-        className="mx-auto max-w-xl space-y-3 border border-gold bg-ink-soft p-5"
-      >
-        <p className="font-display text-2xs tracking-[0.3em] text-gold">DONATE A BOOK</p>
-        <label className="block text-xs tracking-[0.2em] text-gold">
-          TITLE *
-          <input
-            name="title"
-            required
-            maxLength={120}
-            className="inset-field mt-1 min-h-11 w-full bg-ink px-3 text-sm text-cream"
-            placeholder="The Web Application Hacker's Handbook"
-          />
-        </label>
-        <div className="grid gap-3 sm:grid-cols-[1fr_110px]">
-          <label className="block text-xs tracking-[0.2em] text-gold">
-            AUTHOR
-            <input
-              name="author"
-              maxLength={80}
-              className="inset-field mt-1 min-h-11 w-full bg-ink px-3 text-sm text-cream"
-              placeholder="Stuttard & Pinto"
-            />
-          </label>
-          <label className="block text-xs tracking-[0.2em] text-gold">
-            YEAR
-            <input
-              name="year"
-              maxLength={16}
-              inputMode="numeric"
-              className="inset-field mt-1 min-h-11 w-full bg-ink px-3 text-sm text-cream"
-              placeholder="2011"
-            />
-          </label>
-        </div>
-        <label className="block text-xs tracking-[0.2em] text-gold">
-          NOTES
-          <textarea
-            name="notes"
-            rows={2}
-            maxLength={600}
-            className="inset-field mt-1 w-full bg-ink px-3 py-2 text-sm text-cream"
-            placeholder="Why it earns shelf space."
-          />
-        </label>
-        <label className="block text-xs tracking-[0.2em] text-gold">
-          BOOK FILE *{" "}
-          <span className="tracking-normal text-muted">(pdf · epub · mobi · fb2 · zip — 100 MB max)</span>
-          <input
-            name="file"
-            type="file"
-            required
-            accept=".pdf,.epub,.mobi,.azw,.azw3,.fb2,.zip,.txt,application/pdf,application/epub+zip"
-            className="inset-field mt-1 block w-full cursor-pointer bg-ink px-3 py-2 text-sm text-cream file:mr-3 file:cursor-pointer file:border file:border-gold file:bg-ink-soft file:px-3 file:py-1.5 file:font-display file:text-2xs file:tracking-[0.2em] file:text-gold"
-          />
-        </label>
-        {error ? <p className="text-sm text-oxblood">{error}</p> : null}
-        <button
-          type="submit"
-          disabled={busy}
-          className="bevel min-h-11 px-6 font-display text-xs tracking-[0.25em] disabled:opacity-50"
-        >
-          {busy ? "SHELVING…" : "SHELF IT"}
-        </button>
-      </form>
-
-      {reading ? <BookReader book={reading} onClose={() => setReading(null)} /> : null}
-    </SiteShell>
+    <div
+      className="relative flex h-full w-full flex-col justify-between overflow-hidden border border-black/50 p-2.5 shadow-[inset_0_0_40px_rgba(0,0,0,0.45)]"
+      style={{ background: book.bg, color: book.fg }}
+    >
+      <span
+        aria-hidden
+        className="absolute inset-y-0 left-0 w-1.5"
+        style={{ background: book.spine }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-y-0 right-0 w-px opacity-40"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.35))" }}
+      />
+      <div className="pl-2">
+        <span aria-hidden className="mx-auto mb-2 block h-px w-8 bg-current opacity-50" />
+        <p className="font-display text-[0.55rem] leading-snug tracking-[0.04em] sm:text-[0.7rem] sm:tracking-[0.08em]">
+          {book.title}
+        </p>
+      </div>
+      <div className="pl-2">
+        <span aria-hidden className="mb-1.5 block h-px w-5 bg-current opacity-35" />
+        <p className="text-[0.55rem] tracking-[0.12em] opacity-85 sm:text-[0.6rem]">
+          {book.author}
+        </p>
+        <p className="mt-0.5 font-display text-[0.5rem] tracking-[0.2em] opacity-55">
+          {book.year}
+        </p>
+      </div>
+    </div>
   );
 }
 
-function isReadableLabel(book: ShelfBook): string {
-  const ext = book.fileName.split(".").pop()?.toLowerCase() ?? "";
-  return /pdf/i.test(book.fileType) || ext === "pdf" ? "READABLE" : "DOWNLOAD ONLY";
+function Books() {
+  const [active, setActive] = useState<ShelfBook | null>(null);
+  const rows = [SHELF.slice(0, 4), SHELF.slice(4, 7), SHELF.slice(7)];
+
+  return (
+    <SiteShell>
+      <PageTitle kicker="THE STACK" title="BOOKS" />
+      <p className="mx-auto mb-10 max-w-2xl text-center text-sm text-muted">
+        Face-out on the walnut, not spine-in. These are the volumes that shaped the
+        craft — web hacking, social engineering, and the AI decade. Hover a cover for
+        the dossier.
+      </p>
+
+      {/* the case */}
+      <div
+        className="relative mx-auto max-w-4xl overflow-hidden border-[10px] border-[#2a1a0c] p-2 shadow-[0_18px_50px_rgba(0,0,0,0.7)] sm:p-4"
+        style={{
+          background:
+            "repeating-linear-gradient(90deg, transparent 0 4px, rgba(0,0,0,0.04) 4px 7px), linear-gradient(180deg, #3d2914 0%, #2a1c0e 40%, #1f140a 100%)",
+        }}
+      >
+        {/* gold inner frame */}
+        <div className="pointer-events-none absolute inset-1.5 border border-gold/35" aria-hidden />
+
+        <div className="relative space-y-3 sm:space-y-4">
+          {rows.map((row, i) => (
+            <div key={i}>
+              <div className="flex items-end justify-center gap-1.5 px-0.5 sm:gap-3 sm:px-1">
+                {row.map((book) => (
+                  <button
+                    key={book.id}
+                    type="button"
+                    onMouseEnter={() => setActive(book)}
+                    onMouseLeave={() => setActive((cur) => (cur?.id === book.id ? null : cur))}
+                    onFocus={() => setActive(book)}
+                    onBlur={() => setActive((cur) => (cur?.id === book.id ? null : cur))}
+                    className="group relative shrink-0 outline-none"
+                    aria-label={`${book.title} by ${book.author}`}
+                  >
+                    {/* dossier on hover */}
+                    <div
+                      className={`pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 w-60 max-w-[70vw] -translate-x-1/2 border border-gold bg-ink p-3 shadow-[0_12px_34px_rgba(0,0,0,0.7)] transition duration-200 ${
+                        active?.id === book.id
+                          ? "opacity-100"
+                          : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+                      }`}
+                    >
+                      <p className="font-display text-xs tracking-[0.16em] text-gold-bright">
+                        {book.title}
+                      </p>
+                      <p className="mt-1 text-2xs text-cream">
+                        {book.author} · {book.year}
+                      </p>
+                      <p className="mt-2 text-2xs leading-relaxed text-muted">{book.notes}</p>
+                    </div>
+
+                    <span
+                      className="block h-[118px] w-[72px] origin-bottom transition-transform duration-200 group-hover:-translate-y-2 group-focus-visible:-translate-y-2 group-focus-visible:shadow-[0_0_0_1px_var(--color-gold)] sm:h-[148px] sm:w-[96px]"
+                      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.55)" }}
+                    >
+                      <CoverArt book={book} />
+                    </span>
+                  </button>
+                ))}
+              </div>
+              {/* shelf plank */}
+              <div
+                className="mt-0 h-3 border-y border-black/50 sm:h-4"
+                style={{
+                  background:
+                    "linear-gradient(180deg, #6b4420 0%, #4a2e14 35%, #3a2210 70%, #241408 100%)",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.45)",
+                }}
+                aria-hidden
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* base plinth */}
+        <div
+          className="mt-1 h-4 border-t border-black/40 sm:h-5"
+          style={{
+            background:
+              "repeating-linear-gradient(90deg, transparent 0 5px, rgba(0,0,0,0.05) 5px 8px), linear-gradient(180deg, #2a1a0c, #1a1008)",
+          }}
+          aria-hidden
+        />
+      </div>
+
+      <p className="mt-6 text-center font-display text-2xs tracking-[0.25em] text-muted">
+        TEN VOLUMES · NO OVERDUE FEES · NO UPLOADS — JUST THE SHELF
+      </p>
+    </SiteShell>
+  );
 }
