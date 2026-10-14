@@ -21,7 +21,8 @@ export const nav = [
   { to: "/fame", label: "HALL OF FAME" },
   { to: "/activity", label: "ACTIVITY" },
   { to: "/gear", label: "GEAR" },
-  { to: "/guestbook", label: "GUESTBOOK", badge: "NEW" },
+  { to: "/books", label: "BOOKS", badge: "NEW" },
+  { to: "/guestbook", label: "GUESTBOOK" },
   { to: "/contact", label: "CONTACT" },
 ] as const;
 

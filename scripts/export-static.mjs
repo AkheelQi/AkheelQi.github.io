@@ -34,6 +34,7 @@ const ROUTES = [
   "/fame",
   "/activity",
   "/gear",
+  "/books",
   "/guestbook",
   "/contact",
 ];
