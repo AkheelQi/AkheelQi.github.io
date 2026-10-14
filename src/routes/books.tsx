@@ -1,9 +1,12 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell, PageTitle } from "@/components/site-shell";
 
 export const Route = createFileRoute("/books")({ component: Books });
 
+/* Add books here later — same shape:
+ * { id, title, author, year, notes, bg, fg, spine }
+ * bg/fg/spine are hex colors for the cover art.
+ */
 type ShelfBook = {
   id: string;
   title: string;
@@ -15,108 +18,7 @@ type ShelfBook = {
   spine: string;
 };
 
-const SHELF: ShelfBook[] = [
-  {
-    id: "wahh",
-    title: "The Web Application Hacker's Handbook",
-    author: "Stuttard & Pinto",
-    year: "2011",
-    notes: "Still the bible of web app testing. Chapters on XSS and CSRF live rent-free.",
-    bg: "#1a2744",
-    fg: "#f3e6c4",
-    spine: "#0e1628",
-  },
-  {
-    id: "bhp",
-    title: "Black Hat Python",
-    author: "Justin Seitz",
-    year: "2014",
-    notes: "Python for pentesters — network tools, attackers, and the dark arts of sockets.",
-    bg: "#0f1f14",
-    fg: "#c9e0c9",
-    spine: "#08120c",
-  },
-  {
-    id: "hacking",
-    title: "Hacking: The Art of Exploitation",
-    author: "Jon Erickson",
-    year: "2008",
-    notes: "Stack overflows, format strings, and why the machine does what you tell it.",
-    bg: "#2a1810",
-    fg: "#f0d060",
-    spine: "#150c08",
-  },
-  {
-    id: "tangled",
-    title: "The Tangled Web",
-    author: "Michal Zalewski",
-    year: "2011",
-    notes: "Browser security from first principles. Zalewski at his most terrifying.",
-    bg: "#1c1030",
-    fg: "#d4c4f0",
-    spine: "#0e0818",
-  },
-  {
-    id: "ghost",
-    title: "Ghost in the Wires",
-    author: "Kevin Mitnick",
-    year: "2011",
-    notes: "Social engineering memoir. The most wanted hacker never cracked a crypto.",
-    bg: "#3a1020",
-    fg: "#f3e6c4",
-    spine: "#1e0810",
-  },
-  {
-    id: "metasploit",
-    title: "Metasploit: The Penetration Tester's Guide",
-    author: "Kennedy et al.",
-    year: "2011",
-    notes: "The framework that turned exploit delivery into an industry.",
-    bg: "#4a2010",
-    fg: "#f5d0a0",
-    spine: "#261008",
-  },
-  {
-    id: "deception",
-    title: "The Art of Deception",
-    author: "Kevin Mitnick",
-    year: "2002",
-    notes: "People are the weakest link. Mitnick proved it before phishing was a word.",
-    bg: "#102830",
-    fg: "#a8dce8",
-    spine: "#081418",
-  },
-  {
-    id: "ai-super",
-    title: "AI Superpowers",
-    author: "Kai-Fu Lee",
-    year: "2018",
-    notes: "China vs Silicon Valley in the race for AI. Still the best popular intro.",
-    bg: "#3a2808",
-    fg: "#f0d060",
-    spine: "#1e1404",
-  },
-  {
-    id: "human-compatible",
-    title: "Human Compatible",
-    author: "Stuart Russell",
-    year: "2019",
-    notes: "How to build AI that stays useful without maximizing the wrong objective.",
-    bg: "#0c2038",
-    fg: "#c4dcf5",
-    spine: "#06101c",
-  },
-  {
-    id: "deep-learning",
-    title: "Deep Learning",
-    author: "Goodfellow, Bengio & Courville",
-    year: "2016",
-    notes: "The textbook. Heavy. Worth every page if you care how the sausage is made.",
-    bg: "#1a1a1a",
-    fg: "#c9a227",
-    spine: "#0c0c0c",
-  },
-];
+const SHELF: ShelfBook[] = [];
 
 function CoverArt({ book }: { book: ShelfBook }) {
   return (
@@ -154,17 +56,11 @@ function CoverArt({ book }: { book: ShelfBook }) {
 }
 
 function Books() {
-  const [active, setActive] = useState<ShelfBook | null>(null);
   const rows = [SHELF.slice(0, 4), SHELF.slice(4, 7), SHELF.slice(7)];
 
   return (
     <SiteShell>
       <PageTitle kicker="THE STACK" title="BOOKS" />
-      <p className="mx-auto mb-10 max-w-2xl text-center text-sm text-muted">
-        Face-out on the walnut, not spine-in. These are the volumes that shaped the
-        craft — web hacking, social engineering, and the AI decade. Hover a cover for
-        the dossier.
-      </p>
 
       {/* the case */}
       <div
@@ -182,41 +78,23 @@ function Books() {
             <div key={i}>
               <div className="flex items-end justify-center gap-1.5 px-0.5 sm:gap-3 sm:px-1">
                 {row.map((book) => (
-                  <button
+                  <div
                     key={book.id}
-                    type="button"
-                    onMouseEnter={() => setActive(book)}
-                    onMouseLeave={() => setActive((cur) => (cur?.id === book.id ? null : cur))}
-                    onFocus={() => setActive(book)}
-                    onBlur={() => setActive((cur) => (cur?.id === book.id ? null : cur))}
-                    className="group relative shrink-0 outline-none"
-                    aria-label={`${book.title} by ${book.author}`}
+                    className="group relative shrink-0"
                   >
-                    {/* dossier on hover */}
-                    <div
-                      className={`pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 w-60 max-w-[70vw] -translate-x-1/2 border border-gold bg-ink p-3 shadow-[0_12px_34px_rgba(0,0,0,0.7)] transition duration-200 ${
-                        active?.id === book.id
-                          ? "opacity-100"
-                          : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
-                      }`}
-                    >
-                      <p className="font-display text-xs tracking-[0.16em] text-gold-bright">
-                        {book.title}
-                      </p>
-                      <p className="mt-1 text-2xs text-cream">
-                        {book.author} · {book.year}
-                      </p>
-                      <p className="mt-2 text-2xs leading-relaxed text-muted">{book.notes}</p>
-                    </div>
-
                     <span
-                      className="block h-[118px] w-[72px] origin-bottom transition-transform duration-200 group-hover:-translate-y-2 group-focus-visible:-translate-y-2 group-focus-visible:shadow-[0_0_0_1px_var(--color-gold)] sm:h-[148px] sm:w-[96px]"
+                      className="block h-[118px] w-[72px] sm:h-[148px] sm:w-[96px]"
                       style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.55)" }}
                     >
                       <CoverArt book={book} />
                     </span>
-                  </button>
+                  </div>
                 ))}
+                {row.length === 0 && i === 0 ? (
+                  <p className="py-10 font-display text-2xs tracking-[0.3em] text-muted">
+                    SHELF EMPTY — VOLUMES PENDING
+                  </p>
+                ) : null}
               </div>
               {/* shelf plank */}
               <div
@@ -242,10 +120,6 @@ function Books() {
           aria-hidden
         />
       </div>
-
-      <p className="mt-6 text-center font-display text-2xs tracking-[0.25em] text-muted">
-        TEN VOLUMES · NO OVERDUE FEES · NO UPLOADS — JUST THE SHELF
-      </p>
     </SiteShell>
   );
 }

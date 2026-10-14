@@ -3,12 +3,12 @@ import { SiteShell, PageTitle } from "@/components/site-shell";
 import { albums } from "@/data/site";
 import { asset } from "@/lib/asset";
 
-export const Route = createFileRoute("/bibliography")({ component: Discography });
+export const Route = createFileRoute("/projects")({ component: Projects });
 
-function Discography() {
+function Projects() {
   return (
     <SiteShell>
-      <PageTitle kicker="THE CATALOGUE" title="BIBLIOGRAPHY" />
+      <PageTitle kicker="THE CATALOGUE" title="PROJECTS" />
       <p className="mx-auto mb-10 max-w-2xl text-center text-sm text-muted">
         Two Builds. One organism that hunts. One platform where disclosure programs run for real
         (play) money. Click a sleeve for the liner notes.

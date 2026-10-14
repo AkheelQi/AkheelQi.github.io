@@ -55,7 +55,7 @@ function Activity() {
             </span>
           </p>
           <div className="mx-auto mt-6 max-w-xl border border-gold/60 bg-gold/10 px-4 py-2 text-center font-display text-xs tracking-[0.12em] text-gold">
-            CHECK OUT MY <Link to="/bibliography">NEW PORTFOLIO HERE!</Link> — LATEST UPDATE:
+            CHECK OUT MY <Link to="/projects">NEW PORTFOLIO HERE!</Link> — LATEST UPDATE:
             2026.09.25
           </div>
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted">

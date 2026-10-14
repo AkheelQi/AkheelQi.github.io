@@ -17,7 +17,7 @@ export const site = {
 export const nav = [
   { to: "/home", label: "HOME" },
   { to: "/bio", label: "BIO" },
-  { to: "/bibliography", label: "BIBLIOGRAPHY" },
+  { to: "/projects", label: "PROJECTS" },
   { to: "/fame", label: "HALL OF FAME" },
   { to: "/activity", label: "ACTIVITY" },
   { to: "/gear", label: "GEAR" },

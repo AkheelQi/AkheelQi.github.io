@@ -30,7 +30,7 @@ const ROUTES = [
   "/",
   "/home",
   "/bio",
-  "/bibliography",
+  "/projects",
   "/fame",
   "/activity",
   "/gear",

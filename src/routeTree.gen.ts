@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActivityRouteImport } from './routes/activity'
-import { Route as BibliographyRouteImport } from './routes/bibliography'
 import { Route as BioRouteImport } from './routes/bio'
 import { Route as BooksRouteImport } from './routes/books'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -19,6 +18,7 @@ import { Route as FameRouteImport } from './routes/fame'
 import { Route as GearRouteImport } from './routes/gear'
 import { Route as GuestbookRouteImport } from './routes/guestbook'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as ProjectsRouteImport } from './routes/projects'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,11 +28,6 @@ const IndexRoute = IndexRouteImport.update({
 const ActivityRoute = ActivityRouteImport.update({
   id: '/activity',
   path: '/activity',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BibliographyRoute = BibliographyRouteImport.update({
-  id: '/bibliography',
-  path: '/bibliography',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BioRoute = BioRouteImport.update({
@@ -70,11 +65,15 @@ const HomeRoute = HomeRouteImport.update({
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
-  '/bibliography': typeof BibliographyRoute
   '/bio': typeof BioRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
@@ -82,11 +81,11 @@ export interface FileRoutesByFullPath {
   '/gear': typeof GearRoute
   '/guestbook': typeof GuestbookRoute
   '/home': typeof HomeRoute
+  '/projects': typeof ProjectsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
-  '/bibliography': typeof BibliographyRoute
   '/bio': typeof BioRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
@@ -94,12 +93,12 @@ export interface FileRoutesByTo {
   '/gear': typeof GearRoute
   '/guestbook': typeof GuestbookRoute
   '/home': typeof HomeRoute
+  '/projects': typeof ProjectsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
-  '/bibliography': typeof BibliographyRoute
   '/bio': typeof BioRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
@@ -107,13 +106,13 @@ export interface FileRoutesById {
   '/gear': typeof GearRoute
   '/guestbook': typeof GuestbookRoute
   '/home': typeof HomeRoute
+  '/projects': typeof ProjectsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/activity'
-    | '/bibliography'
     | '/bio'
     | '/books'
     | '/contact'
@@ -121,11 +120,11 @@ export interface FileRouteTypes {
     | '/gear'
     | '/guestbook'
     | '/home'
+    | '/projects'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/activity'
-    | '/bibliography'
     | '/bio'
     | '/books'
     | '/contact'
@@ -133,11 +132,11 @@ export interface FileRouteTypes {
     | '/gear'
     | '/guestbook'
     | '/home'
+    | '/projects'
   id:
     | '__root__'
     | '/'
     | '/activity'
-    | '/bibliography'
     | '/bio'
     | '/books'
     | '/contact'
@@ -145,12 +144,12 @@ export interface FileRouteTypes {
     | '/gear'
     | '/guestbook'
     | '/home'
+    | '/projects'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActivityRoute: typeof ActivityRoute
-  BibliographyRoute: typeof BibliographyRoute
   BioRoute: typeof BioRoute
   BooksRoute: typeof BooksRoute
   ContactRoute: typeof ContactRoute
@@ -158,6 +157,7 @@ export interface RootRouteChildren {
   GearRoute: typeof GearRoute
   GuestbookRoute: typeof GuestbookRoute
   HomeRoute: typeof HomeRoute
+  ProjectsRoute: typeof ProjectsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -174,13 +174,6 @@ declare module '@tanstack/react-router' {
       path: '/activity'
       fullPath: '/activity'
       preLoaderRoute: typeof ActivityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bibliography': {
-      id: '/bibliography'
-      path: '/bibliography'
-      fullPath: '/bibliography'
-      preLoaderRoute: typeof BibliographyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bio': {
@@ -232,13 +225,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivityRoute: ActivityRoute,
-  BibliographyRoute: BibliographyRoute,
   BioRoute: BioRoute,
   BooksRoute: BooksRoute,
   ContactRoute: ContactRoute,
@@ -246,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   GearRoute: GearRoute,
   GuestbookRoute: GuestbookRoute,
   HomeRoute: HomeRoute,
+  ProjectsRoute: ProjectsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
