@@ -1,30 +1,30 @@
 [
   {
-    "title": "Gemini 4 Argon is now available for everyone",
-    "summary": "Google opens its latest frontier model to developers, enterprises, and Gemini app subscribers worldwide. Argon runs a 1M unified input-output token limit and launches at an introductory $2 per million input tokens.",
-    "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
-    "image_url": "https://placehold.co/600x800/0c1a2e/c9a227?text=Gemini+4%0AArgon&font=playfair-display",
-    "date": "Oct 13, 2026"
+    "title": "Elorian’s first AI model wants to reason with…",
+    "summary": "According to Elorian's evaluations, Glimpse outperforms even GPT-6 Astra on scientific chart reasoning and short-form video captioning, with competitive results on other visual reasoning tasks.",
+    "source_url": "https://techcrunch.com/2026/10/16/elorians-first-ai-model-wants-to-reason-with-images-not-just-about-them/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/10/image-1.png?resize=1200,675",
+    "date": "Oct 16, 2026"
   },
   {
-    "title": "Meta's Muse Wonder aims at personal superintelligence",
-    "summary": "Meta ships Muse Wonder and Muse Wonder Full with Active Memory and Active Focus — the most capable models yet on personal and professional agentic tasks, trained at gigawatt scale.",
-    "source_url": "https://research.meta.ai/blog/muse-wonder",
-    "image_url": "https://placehold.co/600x800/1a1030/c9a227?text=Muse+Wonder&font=playfair-display",
-    "date": "Oct 12, 2026"
+    "title": "Replit makes OpenAI its default over Anthropic, CEO…",
+    "summary": "Over the weekend, Masad clarified that OpenAI would replace Anthropic as its default model provider. Claude will still be available to customers on the platform.",
+    "source_url": "https://techcrunch.com/2026/10/17/replit-is-no-longer-working-with-anthropic-ceo-says/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/10/replit-ceo-masad.jpg?resize=1200,800",
+    "date": "Oct 17, 2026"
   },
   {
-    "title": "GPT-6 and Intelligent UI for everyone",
-    "summary": "OpenAI brings GPT-6 to more than 1.2 billion weekly ChatGPT users. Intelligent UI lets answers compose graphics, tappable buttons, forms, and charts inside the conversation.",
-    "source_url": "https://openai.com/index/gpt-6-for-everyone/",
-    "image_url": "https://placehold.co/600x800/0f1f14/c9a227?text=GPT-6%0AIntelligent+UI&font=playfair-display",
-    "date": "Oct 7, 2026"
+    "title": "Physical AI is more than robots, says the…",
+    "summary": "Amulya Vishwanath, who spent seven years leading product marketing for NVIDIA’s robotics platforms, says robotics is currently in its “Lego era,” with the basic building blocks like actuators, robotic hands, software, and safety standards still being rebuilt.",
+    "source_url": "https://techcrunch.com/podcast/physical-ai-is-more-than-robots-says-the-nvidia-veteran-now-investing-in-it/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/10/Amulya-Vishwanath-Techable-VC.jpg?resize=960,1200",
+    "date": "Oct 16, 2026"
   },
   {
-    "title": "Claude Haiku 5.5 is out",
-    "summary": "Anthropic releases Claude Haiku 5.5 — the fast tier of the Claude family gets a full point release as Mistral simultaneously ships Large 4.",
-    "source_url": "https://llm-stats.com/llm-updates",
-    "image_url": "https://placehold.co/600x800/3a1020/c9a227?text=Claude%0AHaiku+5.5&font=playfair-display",
-    "date": "Oct 7, 2026"
+    "title": "Meta removes language that raised scraping and AI…",
+    "summary": "A Meta spokesperson insisted that the updated terms did not reflect a change in the way Meta crawls the web.",
+    "source_url": "https://techcrunch.com/2026/10/17/meta-removes-language-that-raised-scraping-and-ai-training-concerns/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/meta-ai-GettyImages-2264943773.jpg?w=1024",
+    "date": "Oct 17, 2026"
   }
 ]
