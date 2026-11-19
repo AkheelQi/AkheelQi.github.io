@@ -23,7 +23,7 @@ import {
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-const PREVIEW_PORT = 8081;
+const PREVIEW_PORT = Number(process.env.PREVIEW_PORT || 8081);
 const PREVIEW_URL = `http://127.0.0.1:${PREVIEW_PORT}/`;
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -297,7 +297,7 @@ async function restart() {
 
   mkdirSync(dirname(LOG_FILE), { recursive: true });
   const log = openSync(LOG_FILE, "a");
-  const child = spawn("npm", ["run", "preview"], {
+  const child = spawn("npm", ["run", "preview", "--", "--port", String(PREVIEW_PORT), "--strictPort"], {
     cwd: ROOT,
     detached: true,
     stdio: ["ignore", log, log],

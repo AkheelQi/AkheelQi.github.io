@@ -23,7 +23,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE_PATH = process.env.BASE_PATH || "/";
 const BASE = BASE_PATH.endsWith("/") ? BASE_PATH : `${BASE_PATH}/`;
-const ORIGIN = "http://127.0.0.1:8081";
+const ORIGIN = `http://127.0.0.1:${process.env.PREVIEW_PORT || 8081}`;
 const OUT = join(ROOT, ".output", "gh-pages");
 
 const ROUTES = [
@@ -31,7 +31,6 @@ const ROUTES = [
   "/home",
   "/bio",
   "/projects",
-  "/fame",
   "/activity",
   "/gear",
   "/books",
