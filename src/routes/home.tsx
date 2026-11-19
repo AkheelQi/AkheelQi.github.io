@@ -3,7 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site-shell";
 import { WeeklyAiPulse } from "@/components/weekly-ai-pulse";
 import { MusicChip } from "@/components/music-chip";
-import { SpinningBadge } from "@/components/spinning-badge";
 import {
   Bookshelf,
   CrtTv,
@@ -88,6 +87,8 @@ function WelcomeModal({ onClose }: { onClose: () => void }) {
 
 function Home() {
   const { visited, mark } = useVisitedRooms();
+  // The training platform stays on /projects but is off the HQ wall board.
+  const boardAlbums = albums.filter((a) => a.slug !== "training");
   const [welcome, setWelcome] = useState(false);
   useEffect(() => {
     try {
@@ -126,19 +127,13 @@ function Home() {
         {/* brick wall band */}
         <div className="brick-wall border-b-3 border-outline p-4 sm:p-5">
           <div className="flex flex-wrap items-stretch justify-center gap-4 lg:justify-between">
-            {/* wall logo */}
-            <div className="flex flex-col items-center justify-center gap-2">
-              <SpinningBadge className="size-20 sm:size-24" />
-              <span className="pixel-tag text-2xs">the webmaster</span>
-            </div>
-
             {/* cork project board */}
             <div className="cork-board min-w-[260px] flex-1 p-3 lg:max-w-xl">
               <p className="border-2 border-outline bg-gold-bright px-2 py-1 text-center font-display text-2xs font-semibold tracking-[0.14em] text-outline sm:text-xs">
-                PROJECT BOARD: {albums.length} BUILDS
+                PROJECT BOARD: {boardAlbums.length} BUILDS
               </p>
               <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {albums.map((a, i) => (
+                {boardAlbums.map((a, i) => (
                   <a
                     key={a.slug}
                     href={a.href}
@@ -163,9 +158,11 @@ function Home() {
 
             {/* neon sign */}
             <div className="neon-board flex min-w-[180px] flex-col items-center justify-center px-5 py-4">
-              <p className="neon-text text-3xl leading-none sm:text-4xl">Build what</p>
-              <p className="neon-text neon-text-cyan mt-1 text-3xl leading-none sm:text-4xl">
-                you love
+              <p className="neon-text neon-text-pixel text-xl leading-tight sm:text-2xl">
+                Hey folks,
+              </p>
+              <p className="neon-text neon-text-pixel neon-text-cyan mt-1 text-xl leading-tight sm:text-2xl">
+                How is GTA 6?!
               </p>
               <span className="sparkle-dot mt-2 text-xs text-neon-pink" aria-hidden>
                 ✦ ✧ ✦

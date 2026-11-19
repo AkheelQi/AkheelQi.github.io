@@ -382,6 +382,13 @@
       0 0 42px color-mix(in oklab, var(--color-neon-cyan) 65%, transparent);
   }
 
+  /* Pixel-font variant of the neon sign (no cursive). */
+  .neon-text-pixel {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
   .room {
     position: relative;
     border: 3px solid var(--color-outline);
