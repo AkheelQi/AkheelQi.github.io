@@ -128,6 +128,28 @@ const SHELF: ShelfBook[] = [
     fg: "#141414",
     spine: "#2fa8a5",
   },
+  {
+    id: "gorilla-country",
+    title: "STORIES OF THE GORILLA COUNTRY",
+    author: "Paul Du Chaillu",
+    year: "1867",
+    notes:
+      "Du Chaillu's equatorial Africa expeditions — the gorilla encounters that made him famous, narrated for young readers. Expedition notes with teeth.",
+    bg: "#1f4a30",
+    fg: "#fff7e3",
+    spine: "#143524",
+  },
+  {
+    id: "psychology-money",
+    title: "THE PSYCHOLOGY OF MONEY",
+    author: "Morgan Housel",
+    year: "2021",
+    notes:
+      "Nineteen short stories on wealth, greed, and happiness — doing well with money is about behaviour, not spreadsheets. Read in the Malayalam edition.",
+    bg: "#b07fe0",
+    fg: "#141414",
+    spine: "#8a5fc0",
+  },
 ];
 
 function CoverArt({ book }: { book: ShelfBook }) {
@@ -195,7 +217,7 @@ function BookModal({ book, onClose }: { book: ShelfBook; onClose: () => void }) 
 
 function Books() {
   const [open, setOpen] = useState<ShelfBook | null>(null);
-  const rows = [SHELF.slice(0, 5), SHELF.slice(5)];
+  const rows = [SHELF.slice(0, 6), SHELF.slice(6)];
   return (
     <SiteShell>
       <PageTitle kicker="THE STACK" title="BOOKS" />

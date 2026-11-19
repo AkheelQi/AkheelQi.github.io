@@ -223,7 +223,7 @@ function Home() {
             <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
               <Bookshelf className="w-24 sm:w-28" />
               <span className="pixel-tag max-w-[120px] text-2xs leading-tight">
-                10 volumes — loved &amp; read so far
+                12 volumes — loved &amp; read so far
               </span>
             </div>
           </Link>

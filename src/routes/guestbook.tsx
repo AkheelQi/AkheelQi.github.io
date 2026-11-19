@@ -32,10 +32,6 @@ function Guestbook() {
   return (
     <SiteShell>
       <PageTitle kicker="" title="GUESTBOOK" />
-      <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-muted">
-        A local, 1998-grade guestbook. Notes live in this browser. No server, no XSS prize, no
-        NASA on the other end — unless you are NASA, in which case: hi.
-      </p>
 
       <form onSubmit={onSubmit} className="mx-auto max-w-xl space-y-3 border border-gold bg-ink-soft p-5">
         <label className="block text-xs tracking-[0.2em] text-gold">
