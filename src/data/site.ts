@@ -18,7 +18,6 @@ export const nav = [
   { to: "/home", label: "HOME" },
   { to: "/bio", label: "BIO" },
   { to: "/projects", label: "PROJECTS" },
-  { to: "/fame", label: "HALL OF FAME" },
   { to: "/activity", label: "ACTIVITY" },
   { to: "/gear", label: "GEAR" },
   { to: "/books", label: "BOOKS", badge: "NEW" },
@@ -101,7 +100,7 @@ export const albums = [
     title: "TEEMS",
     year: "2026",
     kind: "APP",
-    cover: "/art/teems-logo.svg",
+    cover: "/art/teems-logo.png",
     subtitle: "HR & Payroll for Indian Companies",
     href: "https://teems-beta.vercel.app/dashboard",
     blurb:

@@ -1,93 +1,109 @@
-import { useEffect, useState } from "react";
-import { Link, createFileRoute } from "@tanstack/react-router";
-import { SiteShell } from "@/components/site-shell";
-import { CrtOverlay } from "@/components/crt-overlay";
-import { BootSequence } from "@/components/boot-sequence";
-import { PowerButton } from "@/components/power-button";
-import { MuteKnob } from "@/components/mute-knob";
-import { ActivityFeed } from "@/components/activity-feed";
-import { PowerGate } from "@/components/power-gate";
-import { MoodPopup } from "@/components/mood-popup";
-import { posts } from "@/data/site";
-import { installRetroAudioUnlock } from "@/lib/retro-audio";
+import { createFileRoute } from "@tanstack/react-router";
+import { SiteShell, PageTitle } from "@/components/site-shell";
+import { PixelPhoto } from "@/components/pixel-photo";
+import { story, type StoryChapter } from "@/data/story";
+import { asset } from "@/lib/asset";
 
 export const Route = createFileRoute("/activity")({ component: Activity });
 
-function Activity() {
-  const [hits, setHits] = useState("0000000");
-  const [powered, setPowered] = useState(false);
-
-  useEffect(() => {
-    installRetroAudioUnlock();
-    const key = "akheel-log-views";
-    const next = Number(window.localStorage.getItem(key) || "0") + 1;
-    window.localStorage.setItem(key, String(next));
-    setHits(String(next).padStart(7, "0"));
-  }, []);
-
-  if (!powered) {
-    return (
-      <>
-        <PowerGate
-          onPowerOn={() => {
-            window.scrollTo(0, 0);
-            setPowered(true);
-          }}
-        />
-        <MoodPopup />
-      </>
-    );
-  }
-
+function ChapterPanel({ c }: { c: StoryChapter }) {
   return (
-    <>
-      <SiteShell>
-        <header className="text-center">
-          <p className="font-display text-2xs tracking-[0.4em] text-gold">
-            WELCOME, NETSURFER — YOU ARE INSIDE
+    <article className="pixel-panel p-5">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="pixel-plaque text-2xs tracking-[0.14em]">{c.year}</span>
+        <span className="font-display text-2xs tracking-[0.3em] text-[#8a6b16]">{c.chapter}</span>
+      </div>
+      <h3 className="mt-3 font-display text-xl font-semibold tracking-[0.06em] text-outline">
+        {c.title}
+      </h3>
+      <div className="mt-3 space-y-2">
+        {c.body.map((p) => (
+          <p key={p.slice(0, 24)} className="text-sm leading-relaxed text-[#3d3a30]">
+            {p}
           </p>
-          <h2 className="crt-fringe mt-3 font-display text-3xl leading-tight font-bold tracking-[0.14em] text-gold-bright sm:text-4xl">
-            AKHEEL'S ACTIVITY LOG
-          </h2>
-          <p className="mt-3">
-            <span className="blink inline-block -rotate-2 border-2 border-ink bg-gold-bright px-2 py-0.5 font-display text-2xs font-bold tracking-[0.2em] text-ink shadow-[2px_2px_0_#000]">
-              UNDER CONSTRUCTION
-            </span>
-          </p>
-          <div className="mx-auto mt-6 max-w-xl border border-gold/60 bg-gold/10 px-4 py-2 text-center font-display text-xs tracking-[0.12em] text-gold">
-            CHECK OUT MY <Link to="/projects">NEW PORTFOLIO HERE!</Link> — LATEST UPDATE:
-            2026.09.25
-          </div>
-          <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted">
-            Posts, papers, videos and quotes — posted here first. Read one, like it, argue in the
-            comments, share the link. Empty folders keep the lights on with placeholders until the
-            next transmission. Drag windows by their title bars (desktop only), close them with ✕,
-            bring everything back with SHOW ALL. The POWER button bottom-right kills the tube. The
-            knob controls the beeps.
-          </p>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
-            <div className="flex items-center gap-2 text-xs text-gold">
-              <span className="tracking-[0.2em]">LOG VIEWS</span>
-              <span className="flex" aria-label={`Log views ${Number(hits)}`}>
-                {hits.split("").map((d, i) => (
-                  <span
-                    key={`${d}-${i}`}
-                    className="inline-block min-w-4 border border-gold/40 bg-ink px-1 py-0.5 text-center font-display text-cream tabular-nums"
-                  >
-                    {d}
-                  </span>
-                ))}
-              </span>
-            </div>
-            <MuteKnob />
-          </div>
-        </header>
+        ))}
+      </div>
+      {c.artifacts?.length ? (
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {c.artifacts.map((a) => (
+            <li key={a} className="pixel-tag text-2xs">
+              {a}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </article>
+  );
+}
 
-        <ActivityFeed posts={posts} />
-      </SiteShell>
-      <CrtOverlay />
-      <BootSequence />
-      <PowerButton onPowerDown={() => setPowered(false)} />
-    </>
+function ChapterRow({ c, i }: { c: StoryChapter; i: number }) {
+  const flip = i % 2 === 1;
+  return (
+    <li className="relative pl-12 md:grid md:grid-cols-2 md:gap-16 md:pl-0">
+      {/* timeline node */}
+      <span
+        className="absolute left-[19px] top-8 z-10 inline-block size-5 -translate-x-1/2 rounded-full border-3 border-outline bg-gold-bright shadow-[2px_2px_0_#101018] md:left-1/2"
+        aria-hidden
+      />
+      <div className={flip ? "md:order-2" : "md:order-1"}>
+        <ChapterPanel c={c} />
+      </div>
+      {c.image ? (
+        <figure className={`mt-4 md:mt-0 ${flip ? "md:order-1" : "md:order-2"}`}>
+          <div className="frame-gold p-1.5">
+            <PixelPhoto src={asset(c.image.src)} alt={c.image.alt} pixels={56} />
+          </div>
+          <figcaption className="mt-2 text-center font-display text-2xs tracking-[0.2em] text-muted">
+            {c.image.alt.toUpperCase()}
+          </figcaption>
+        </figure>
+      ) : null}
+    </li>
+  );
+}
+
+function Activity() {
+  return (
+    <SiteShell>
+      <PageTitle kicker="THE ARCHIVES" title="LIFE STORY" />
+      <p className="mx-auto mb-12 max-w-2xl text-center text-sm text-muted">
+        An absurd being, documented — the whole campaign so far, chapter by chapter, in pixels.
+        Scroll the timeline; the archives grow as the webmaster uploads them.
+      </p>
+
+      <div className="relative mx-auto max-w-5xl">
+        {/* the spine */}
+        <span
+          className="absolute bottom-0 left-[19px] top-0 w-1 -translate-x-1/2 md:left-1/2"
+          style={{
+            background:
+              "repeating-linear-gradient(180deg, var(--color-gold) 0 12px, transparent 12px 22px)",
+          }}
+          aria-hidden
+        />
+        <ol className="space-y-12 md:space-y-16">
+          {story.map((c, i) => (
+            <ChapterRow key={c.id} c={c} i={i} />
+          ))}
+
+          {/* to be continued */}
+          <li className="relative pl-12 md:pl-0">
+            <span
+              className="absolute left-[19px] top-6 z-10 inline-block size-5 -translate-x-1/2 rounded-full border-3 border-outline bg-oxblood shadow-[2px_2px_0_#101018] md:left-1/2"
+              aria-hidden
+            />
+            <div className="pixel-panel mx-auto max-w-xl p-5 text-center md:ml-[calc(50%+2rem)] md:mr-0 md:text-left">
+              <p className="font-display text-lg font-semibold tracking-[0.1em] text-outline">
+                TO BE CONTINUED<span className="blink">▮</span>
+              </p>
+              <p className="mt-2 text-sm text-[#3d3a30]">
+                The full timeline is being digitized. New chapters land here as the webmaster
+                uploads them — same pixels, more history.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </SiteShell>
   );
 }

@@ -10,13 +10,12 @@ import {
   PixelPerson,
   PlantPot,
   Sofa,
-  Trophy,
 } from "@/components/pixel-sprites";
 import { albums, aiQuotes, news, site } from "@/data/site";
 
 export const Route = createFileRoute("/home")({ component: Home });
 
-const ROOMS = ["bio", "fame", "gear", "books", "guestbook", "activity"] as const;
+const ROOMS = ["bio", "gear", "books", "guestbook", "activity"] as const;
 type RoomId = (typeof ROOMS)[number];
 const VISITED_KEY = "hq-rooms-visited";
 
@@ -203,22 +202,6 @@ function Home() {
             </div>
           </Link>
 
-          {/* FAME */}
-          <Link to="/fame" {...room("fame")} className="room tan-floor block min-h-48 p-3 no-underline">
-            <RoomPlaque label="HALL OF FAME" badge={4} />
-            <div className="absolute bottom-3 left-3 right-3">
-              <div className="flex items-end justify-center gap-4">
-                <Trophy className="w-8" />
-                <Trophy className="w-11" />
-                <Trophy className="w-8" />
-              </div>
-              <div className="mt-1 h-2 border-2 border-outline bg-wood-light" aria-hidden />
-              <p className="mt-2 text-center font-display text-2xs tracking-[0.14em] text-[#4a2e1a]">
-                NASA · EC-COUNCIL · LG · MORE
-              </p>
-            </div>
-          </Link>
-
           {/* GEAR */}
           <Link to="/gear" {...room("gear")} className="room tile-floor block min-h-48 p-3 no-underline">
             <RoomPlaque label="GEAR ROOM" badge={8} />
@@ -263,16 +246,21 @@ function Home() {
             </div>
           </Link>
 
-          {/* ACTIVITY */}
+          {/* ACTIVITY — life story archive (wide room fills the grid) */}
           <Link
             to="/activity"
             {...room("activity")}
-            className="room block min-h-48 bg-[#16161c] p-3 no-underline"
+            className="room wood-floor block min-h-48 p-3 no-underline lg:col-span-2"
           >
-            <RoomPlaque label="CRT DEN · ACTIVITY" />
+            <RoomPlaque label="THE ARCHIVE · LIFE STORY" badge="NEW" />
             <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
-              <CrtTv className="w-20 sm:w-24" />
-              <span className="blink pixel-tag text-2xs">UNDER CONSTRUCTION</span>
+              <div className="flex items-end gap-3">
+                <Bookshelf className="w-20 sm:w-24" />
+                <CrtTv className="hidden w-16 sm:block" />
+              </div>
+              <span className="pixel-tag max-w-[160px] text-2xs leading-tight">
+                once upon a time… the whole story, in pixels
+              </span>
             </div>
           </Link>
         </div>
@@ -306,22 +294,8 @@ function Home() {
 
       {/* ── DISPATCHES BELOW THE MAP ── */}
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <section>
-          <WeeklyAiPulse />
-        </section>
         <section className="space-y-6">
-          <article className="pixel-panel p-5">
-            <p className="font-display text-2xs tracking-[0.3em] text-[#8a6b16]">MY UPDATES</p>
-            <ul className="mt-3 space-y-3">
-              {news.map((n) => (
-                <li key={n.headline} className="border-t-2 border-outline/15 pt-3 first:border-0 first:pt-0">
-                  <p className="font-display text-2xs tracking-[0.2em] text-[#8d8672]">{n.date}</p>
-                  <p className="font-display text-sm text-outline">{n.headline}</p>
-                  <p className="text-xs leading-relaxed text-[#5c5647]">{n.body}</p>
-                </li>
-              ))}
-            </ul>
-          </article>
+          <WeeklyAiPulse />
           <article className="pixel-panel p-5">
             <p className="font-display text-2xs tracking-[0.3em] text-[#8a6b16]">
               WISDOM OF THE MACHINE
@@ -333,6 +307,20 @@ function Home() {
                   <p className="mt-1.5 text-right font-display text-2xs tracking-[0.14em] text-[#8d8672]">
                     — {q.source}
                   </p>
+                </li>
+              ))}
+            </ul>
+          </article>
+        </section>
+        <section>
+          <article className="pixel-panel p-5">
+            <p className="font-display text-2xs tracking-[0.3em] text-[#8a6b16]">MY UPDATES</p>
+            <ul className="mt-3 space-y-3">
+              {news.map((n) => (
+                <li key={n.headline} className="border-t-2 border-outline/15 pt-3 first:border-0 first:pt-0">
+                  <p className="font-display text-2xs tracking-[0.2em] text-[#8d8672]">{n.date}</p>
+                  <p className="font-display text-sm text-outline">{n.headline}</p>
+                  <p className="text-xs leading-relaxed text-[#5c5647]">{n.body}</p>
                 </li>
               ))}
             </ul>

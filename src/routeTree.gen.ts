@@ -14,7 +14,6 @@ import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as BioRouteImport } from './routes/bio'
 import { Route as BooksRouteImport } from './routes/books'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as FameRouteImport } from './routes/fame'
 import { Route as GearRouteImport } from './routes/gear'
 import { Route as GuestbookRouteImport } from './routes/guestbook'
 import { Route as HomeRouteImport } from './routes/home'
@@ -45,11 +44,6 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FameRoute = FameRouteImport.update({
-  id: '/fame',
-  path: '/fame',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GearRoute = GearRouteImport.update({
   id: '/gear',
   path: '/gear',
@@ -77,7 +71,6 @@ export interface FileRoutesByFullPath {
   '/bio': typeof BioRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
-  '/fame': typeof FameRoute
   '/gear': typeof GearRoute
   '/guestbook': typeof GuestbookRoute
   '/home': typeof HomeRoute
@@ -89,7 +82,6 @@ export interface FileRoutesByTo {
   '/bio': typeof BioRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
-  '/fame': typeof FameRoute
   '/gear': typeof GearRoute
   '/guestbook': typeof GuestbookRoute
   '/home': typeof HomeRoute
@@ -102,7 +94,6 @@ export interface FileRoutesById {
   '/bio': typeof BioRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
-  '/fame': typeof FameRoute
   '/gear': typeof GearRoute
   '/guestbook': typeof GuestbookRoute
   '/home': typeof HomeRoute
@@ -116,7 +107,6 @@ export interface FileRouteTypes {
     | '/bio'
     | '/books'
     | '/contact'
-    | '/fame'
     | '/gear'
     | '/guestbook'
     | '/home'
@@ -128,7 +118,6 @@ export interface FileRouteTypes {
     | '/bio'
     | '/books'
     | '/contact'
-    | '/fame'
     | '/gear'
     | '/guestbook'
     | '/home'
@@ -140,7 +129,6 @@ export interface FileRouteTypes {
     | '/bio'
     | '/books'
     | '/contact'
-    | '/fame'
     | '/gear'
     | '/guestbook'
     | '/home'
@@ -153,7 +141,6 @@ export interface RootRouteChildren {
   BioRoute: typeof BioRoute
   BooksRoute: typeof BooksRoute
   ContactRoute: typeof ContactRoute
-  FameRoute: typeof FameRoute
   GearRoute: typeof GearRoute
   GuestbookRoute: typeof GuestbookRoute
   HomeRoute: typeof HomeRoute
@@ -197,13 +184,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/fame': {
-      id: '/fame'
-      path: '/fame'
-      fullPath: '/fame'
-      preLoaderRoute: typeof FameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/gear': {
       id: '/gear'
       path: '/gear'
@@ -241,7 +221,6 @@ const rootRouteChildren: RootRouteChildren = {
   BioRoute: BioRoute,
   BooksRoute: BooksRoute,
   ContactRoute: ContactRoute,
-  FameRoute: FameRoute,
   GearRoute: GearRoute,
   GuestbookRoute: GuestbookRoute,
   HomeRoute: HomeRoute,
