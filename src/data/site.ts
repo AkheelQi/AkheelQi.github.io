@@ -359,7 +359,7 @@ export const posts: ActivityPost[] = [];
 export const education = {
   degree: "Bachelor of Computer Science",
   school: "University of Calicut, Kerala, India",
-  years: "2019 – 2022",
+  years: "2019 – 2023",
   cert: "CICSA — Certified IT Infrastructure and Cyber SOC Analyst",
 } as const;
 

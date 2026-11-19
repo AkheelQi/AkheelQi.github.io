@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell, PageTitle } from "@/components/site-shell";
-import { PixelPhoto } from "@/components/pixel-photo";
 import { story, type StoryChapter } from "@/data/story";
-import { asset } from "@/lib/asset";
 
 export const Route = createFileRoute("/activity")({ component: Activity });
 
@@ -48,16 +46,17 @@ function ChapterRow({ c, i }: { c: StoryChapter; i: number }) {
       <div className={flip ? "md:order-2" : "md:order-1"}>
         <ChapterPanel c={c} />
       </div>
-      {c.image ? (
-        <figure className={`mt-4 md:mt-0 ${flip ? "md:order-1" : "md:order-2"}`}>
-          <div className="frame-gold p-1.5">
-            <PixelPhoto src={asset(c.image.src)} alt={c.image.alt} pixels={56} />
-          </div>
-          <figcaption className="mt-2 text-center font-display text-2xs tracking-[0.2em] text-muted">
-            {c.image.alt.toUpperCase()}
-          </figcaption>
-        </figure>
-      ) : null}
+      {/* big pixel year on the opposite side of the spine */}
+      <div
+        className={`hidden items-center md:flex ${
+          flip ? "md:order-1 md:justify-end" : "md:order-2 md:justify-start"
+        }`}
+        aria-hidden
+      >
+        <span className="gold-foil font-display text-5xl font-bold tracking-[0.06em]">
+          {c.year}
+        </span>
+      </div>
     </li>
   );
 }

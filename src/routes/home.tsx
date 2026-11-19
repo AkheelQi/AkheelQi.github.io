@@ -11,7 +11,7 @@ import {
   PlantPot,
   Sofa,
 } from "@/components/pixel-sprites";
-import { albums, aiQuotes, news, site } from "@/data/site";
+import { albums, aiQuotes, site } from "@/data/site";
 
 export const Route = createFileRoute("/home")({ component: Home });
 
@@ -294,8 +294,10 @@ function Home() {
 
       {/* ── DISPATCHES BELOW THE MAP ── */}
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <section className="space-y-6">
+        <section>
           <WeeklyAiPulse />
+        </section>
+        <section>
           <article className="pixel-panel p-5">
             <p className="font-display text-2xs tracking-[0.3em] text-[#8a6b16]">
               WISDOM OF THE MACHINE
@@ -307,20 +309,6 @@ function Home() {
                   <p className="mt-1.5 text-right font-display text-2xs tracking-[0.14em] text-[#8d8672]">
                     — {q.source}
                   </p>
-                </li>
-              ))}
-            </ul>
-          </article>
-        </section>
-        <section>
-          <article className="pixel-panel p-5">
-            <p className="font-display text-2xs tracking-[0.3em] text-[#8a6b16]">MY UPDATES</p>
-            <ul className="mt-3 space-y-3">
-              {news.map((n) => (
-                <li key={n.headline} className="border-t-2 border-outline/15 pt-3 first:border-0 first:pt-0">
-                  <p className="font-display text-2xs tracking-[0.2em] text-[#8d8672]">{n.date}</p>
-                  <p className="font-display text-sm text-outline">{n.headline}</p>
-                  <p className="text-xs leading-relaxed text-[#5c5647]">{n.body}</p>
                 </li>
               ))}
             </ul>

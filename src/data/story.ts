@@ -1,17 +1,14 @@
 /**
  * THE LIFE STORY — chapter data for the /activity archive.
- *
- * Each chapter is one era of the timeline. Add/reorder freely; the page
- * renders them in array order as a pixelated historical timeline.
- * `image` is pixelated on render (PixelPhoto), so any photo works.
- *
- * NOTE: these seed chapters are drawn from the existing bio. The webmaster
- * is uploading the full detailed timeline — replace/extend as it arrives.
+ * The webmaster's own timeline, in his words (lightly cleaned up).
+ * Add/reorder freely; the page renders them in array order.
+ * `image` is optional and pixelated on render (PixelPhoto) when present —
+ * the timeline runs text-only for now.
  */
 
 export type StoryChapter = {
   id: string;
-  chapter: string; // roman numeral / era label
+  chapter: string;
   year: string;
   title: string;
   body: string[];
@@ -21,63 +18,68 @@ export type StoryChapter = {
 
 export const story: StoryChapter[] = [
   {
-    id: "origins",
+    id: "fighting-years",
     chapter: "CHAPTER I",
-    year: "THE BEGINNING",
-    title: "MALABAR ORIGINS",
+    year: "2019",
+    title: "THE FIGHTING YEARS",
     body: [
-      "Every story starts somewhere. This one starts on the Malabar coast, Kerala — where an absurd being first logged on.",
-      "Curiosity shipped early: take things apart, see how the tricks work, put them back together slightly different.",
+      "Started a life fully engaged by boxing and martial arts — training all day, every day, for three years continuous.",
+      "The training never stopped; it ran alongside the CS degree, round after round.",
     ],
-    image: { src: "/art/bio.png", alt: "The webmaster, early archives" },
-    artifacts: ["Kerala, India", "self-certified philosopher"],
+    artifacts: ["Boxing", "Martial arts", "3 years of all-day training"],
   },
   {
-    id: "calicut",
+    id: "medical-store",
     chapter: "CHAPTER II",
-    year: "2019 – 2022",
-    title: "THE CALICUT YEARS",
+    year: "2022",
+    title: "THE MEDICAL STORE",
     body: [
-      "Bachelor of Computer Science at the University of Calicut. The formal patch of the story.",
-      "Somewhere between lectures and labs, the security rabbit hole opened — and never closed. CICSA certification followed: Certified IT Infrastructure and Cyber SOC Analyst.",
+      "Worked part-time at a medical store and learned about thousands of medicines.",
+      "Did self-research and writings along the way, as much as possible — the counter was the first lab bench.",
     ],
-    image: { src: "/art/portrait-monitors.jpg", alt: "At a wall of monitors" },
-    artifacts: ["B.Sc Computer Science", "CICSA"],
+    artifacts: ["Part-time", "Thousands of medicines", "Self-research & writing"],
   },
   {
-    id: "disclosures",
+    id: "degree-archives",
     chapter: "CHAPTER III",
-    year: "2024",
-    title: "THE QUIET WORK GETS LOUD",
+    year: "2023",
+    title: "DEGREE & THE ARCHIVES",
     body: [
-      "Responsible disclosure season. EC-Council puts the webmaster in the Hall of Fame. NASA, via Bugcrowd, takes high-impact web findings. LG Electronics sends thanks for a critical application bug.",
-      "Yahoo and DeHaat patch in the same season. Quiet reports, loud fixes, no press tour.",
+      "Completed the CS degree and started research on my own — self-study of history and science.",
+      "Collected various science papers and historic notes: expedition stories on the Amazon rainforest and its surroundings, among them.",
     ],
-    image: { src: "/art/portrait-leather.jpg", alt: "Leather jacket beside a glowing CRT" },
-    artifacts: ["EC-Council HOF", "NASA VDP", "LG LOA", "Yahoo · DeHaat"],
+    artifacts: ["CS degree", "History & science self-study", "Amazon expedition notes"],
   },
   {
-    id: "teaching",
+    id: "the-switch",
     chapter: "CHAPTER IV",
-    year: "THE SIDE QUESTS",
-    title: "TEACHING THE TRICKS",
+    year: "2024",
+    title: "THE SWITCH TO SECURITY",
     body: [
-      "The through-line: map the surface, respect the scope, keep a human in the loop, file evidence a tired triager can actually use.",
-      "Offenso Hackers Academy and Red Team Hacker Academy both put the webmaster on the bill — teaching people how the tricks actually work.",
+      "Moved my career completely into cybersecurity. Within months of learning, found vulnerabilities on NASA, EC-Council, LG, and the Government of UK.",
     ],
-    image: { src: "/art/portrait-studio.jpg", alt: "Studio still, gold light" },
-    artifacts: ["Offenso Hackers Academy", "Red Team Hacker Academy"],
+    artifacts: ["NASA", "EC-Council", "LG", "Government of UK"],
   },
   {
-    id: "builds",
+    id: "researcher-web3",
     chapter: "CHAPTER V",
-    year: "2026",
-    title: "BUILDING THE TOOLS",
+    year: "2025",
+    title: "RESEARCHER & WEB3",
     body: [
-      "DEMOGORGON ships: an autonomous, scope-aware, human-overridable bug bounty research agent. The tools he wished he had at 2 a.m. now exist.",
-      "The official site goes live. TEEMS and CloudBridge join the board. The archive you are reading is the next chapter.",
+      "Worked as a security researcher.",
+      "Also spent time on crypto and Web3 — new surfaces, new tricks.",
     ],
-    image: { src: "/art/Demogorgon.png", alt: "DEMOGORGON cover art" },
-    artifacts: ["DEMOGORGON", "TEEMS", "CloudBridge", "this site"],
+    artifacts: ["Security research", "Crypto", "Web3"],
+  },
+  {
+    id: "trainer-automation",
+    chapter: "CHAPTER VI",
+    year: "2026",
+    title: "TRAINER & AUTOMATION",
+    body: [
+      "Worked as a trainer again.",
+      "Currently focusing on deeper security automation projects — automation on both defence and offence — and actively participating in security bounty programs around the internet.",
+    ],
+    artifacts: ["Training", "Defence + offence automation", "Bug bounty programs"],
   },
 ];
