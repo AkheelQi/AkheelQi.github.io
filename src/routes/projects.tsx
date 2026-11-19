@@ -10,8 +10,8 @@ function Projects() {
     <SiteShell>
       <PageTitle kicker="THE CATALOGUE" title="PROJECTS" />
       <p className="mx-auto mb-10 max-w-2xl text-center text-sm text-muted">
-        Two Builds. One organism that hunts. One platform where disclosure programs run for real
-        (play) money. Click a sleeve for the liner notes.
+        {albums.length} builds on the board — an organism that hunts, a disclosure platform, an HR
+        console, a multi-cloud playbook, and a real-estate map. Click a sleeve for the liner notes.
       </p>
       <div className="space-y-12">
         {albums.map((a, i) => {

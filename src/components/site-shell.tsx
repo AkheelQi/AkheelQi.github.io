@@ -29,14 +29,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="relative min-h-screen">
       <SparkleCursor />
-      <div className="scanlines pointer-events-none absolute inset-0 z-10 mix-blend-multiply" />
       <header className="relative z-20 mx-auto max-w-6xl px-4 pt-5 sm:px-6">
         <Link to="/home" className="block no-underline">
-          <h1 className="gold-foil text-center font-display text-3xl font-bold tracking-[0.18em] sm:text-4xl">
+          <h1 className="gold-foil text-center font-display text-3xl font-bold tracking-[0.14em] sm:text-4xl">
             {site.shortName}
           </h1>
         </Link>
-        <p className="mt-2 text-center font-display text-xs tracking-[0.35em] text-muted">
+        <p className="mt-2 text-center font-display text-xs tracking-[0.3em] text-muted">
           {site.motto}
         </p>
         <div
@@ -44,25 +43,23 @@ export function SiteShell({ children }: { children: ReactNode }) {
           title="click for music — double-click for home"
           className="mx-auto mt-4 w-fit cursor-pointer touch-manipulation select-none"
         >
-          <SpinningBadge className="size-20 sm:size-28" />
+          <SpinningBadge className="size-16 sm:size-20" />
         </div>
         <hr className="gold-rule mx-auto mt-4 max-w-3xl" />
 
-        <nav className="mt-4 hidden flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:flex">
-          {nav.map((item, i) => (
-            <span key={item.to} className="flex items-center gap-3">
-              {i > 0 ? <span className="text-gold">★</span> : null}
-              <Link
-                to={item.to}
-                className="nav-link font-display text-xs tracking-[0.22em] text-gold-bright no-underline hover:text-cream"
-                activeProps={{ className: "text-cream underline decoration-gold underline-offset-4" }}
-              >
-                {item.label}
-                {"badge" in item && item.badge ? (
-                  <sup className="blink ml-1 font-body text-2xs text-oxblood">{item.badge}</sup>
-                ) : null}
-              </Link>
-            </span>
+        <nav className="mt-4 hidden flex-wrap items-center justify-center gap-2 sm:flex">
+          {nav.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className="nav-link bevel-ghost px-3 py-1 font-display text-xs tracking-[0.14em] no-underline"
+              activeProps={{ className: "bevel text-outline" }}
+            >
+              {item.label}
+              {"badge" in item && item.badge ? (
+                <sup className="blink ml-1 font-body text-2xs text-oxblood">{item.badge}</sup>
+              ) : null}
+            </Link>
           ))}
         </nav>
 
@@ -76,13 +73,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
             {open ? "CLOSE MENU" : "MENU"}
           </button>
           {open ? (
-            <ul className="mt-2 border border-gold bg-ink-soft">
+            <ul className="mt-2 border-3 border-outline bg-cream shadow-[5px_5px_0_#101018]">
               {nav.map((item) => (
-                <li key={item.to} className="border-b border-gold/30 last:border-0">
+                <li key={item.to} className="border-b-2 border-outline/15 last:border-0">
                   <Link
                     to={item.to}
                     onClick={() => setOpen(false)}
-                    className="flex min-h-11 items-center px-4 font-display text-sm tracking-[0.2em] text-gold-bright no-underline"
+                    className="flex min-h-11 items-center px-4 font-display text-sm tracking-[0.14em] text-outline no-underline"
+                    activeProps={{ className: "bg-gold-bright" }}
                   >
                     {item.label}
                   </Link>
@@ -93,13 +91,16 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <div className="relative z-20 mx-auto mt-4 max-w-6xl overflow-hidden border-y border-gold/40 bg-ink-soft/80">
-        <div className="marquee-track flex w-max gap-16 py-2 text-xs tracking-[0.2em] text-gold whitespace-nowrap">
+      <div className="relative z-20 mx-auto mt-4 max-w-6xl overflow-hidden border-y-3 border-outline bg-cream">
+        <div className="marquee-track flex w-max gap-16 py-2 font-display text-xs tracking-[0.18em] text-outline whitespace-nowrap">
           {Array.from({ length: 2 }).map((_, k) => (
             <p key={k} className="flex gap-16 px-8">
-              <span>WELCOME TO THE OFFICIAL SITE — {site.tagline.toUpperCase()}</span>
+              <span>WELCOME TO AKHEEL HQ — {site.tagline.toUpperCase()}</span>
+              <span className="text-oxblood">▚▚</span>
               <span>AN ABSURD GO GETTER</span>
+              <span className="text-oxblood">▚▚</span>
               <span>HOPE YOU FIND'S ME WELL</span>
+              <span className="text-oxblood">▚▚</span>
               <span>SIGN THE GUESTBOOK · DO NOT XSS THE COUNTER</span>
             </p>
           ))}
@@ -126,7 +127,7 @@ export function PageTitle({ kicker, title }: { kicker: string; title: string }) 
   return (
     <header className="mb-8 text-center">
       <p className="font-display text-2xs tracking-[0.4em] text-gold">{kicker}</p>
-      <h2 className="mt-2 font-display text-2xl font-semibold tracking-[0.16em] text-cream sm:text-3xl">
+      <h2 className="mt-2 font-display text-2xl font-semibold tracking-[0.1em] text-cream sm:text-3xl">
         {title}
       </h2>
       <hr className="gold-rule mx-auto mt-4 max-w-md" />

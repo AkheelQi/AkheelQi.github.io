@@ -96,24 +96,44 @@ export const albums = [
     ],
     stack: "FastAPI, MongoDB, JWT, React, Tailwind, Docker",
   },
- /*  {
-    slug: "soc",
-    title: "After Dark",
+   {
+    slug: "teems",
+    title: "TEEMS",
     year: "2026",
-    kind: "EP",
-    cover: "/art/album-soc.jpg",
-    subtitle: "Enterprise-Grade SOC & Threat Monitoring Lab",
-    href: "https://github.com/akheeltester",
+    kind: "APP",
+    cover: "/art/teems-logo.svg",
+    subtitle: "HR & Payroll for Indian Companies",
+    href: "https://teems-beta.vercel.app/dashboard",
     blurb:
-      "A homegrown SOC: Wazuh for the hunt, Splunk for the story, pfSense for the walls. Threat monitoring, log analysis, detection, and network segmentation — Currently Down.",
+      "An enterprise employee management system — HR and payroll built for Indian companies. One sign-in dashboard to run the people side of the business: employee records, pay workflows, and admin control in a single console.",
     tracks: [
-      "Wazuh Sunrise",
-      "Splunk After Dark",
-      "pfSense Interlude",
-      "VLAN / VPN Segmentation",
-      "Incident Response Reprise",
+      "Enterprise employee management",
+      "HR + payroll workflows",
+      "Built for Indian companies",
+      "Sign-in gated dashboard (live beta)",
     ],
-    stack: "Wazuh, Splunk, pfSense, Docker",
+    stack: "Live beta · Vercel",
+    cta: "Open dashboard",
+  },
+  {
+    slug: "cloudbridge",
+    title: "CloudBridge",
+    year: "2026",
+    kind: "OPS",
+    cover: "/art/cloud-bridge-logo.svg",
+    subtitle: "Multi-Cloud Migration & Security Operations",
+    href: "https://akheeltester.github.io/Cloud_Bridge/automation",
+    blurb:
+      "A repeatable playbook for deploying and managing cloud assets — securely, on a budget. Three customer engagements run end-to-end: containerize, provision with Terraform, ship through CI/CD, scan with Checkov/Trivy/Prowler, remediate what matters, and monitor from one dashboard. Three live deployments on AWS + GCP free tiers, health-checked over HTTPS.",
+    tracks: [
+      "Terraform plan-first IaC",
+      "GitHub Actions CI/CD + secret scanning",
+      "Checkov · Trivy · Prowler — criticals fixed & re-verified",
+      "BluePeak on AWS EC2 + private S3 + Caddy HTTPS",
+      "Jigsaw on GCP Cloud Run · NovaTrail on free-tier VM",
+    ],
+    stack: "Terraform, Docker, GitHub Actions, AWS, GCP, React",
+    cta: "Open automation console",
   },
   {
     slug: "idam",
@@ -239,7 +259,7 @@ export const albums = [
     stack:
       "Next.js 14, React 18, TypeScript, Tailwind CSS, NestJS, TypeORM, Passport.js, PostgreSQL 16 + PostGIS, Redis, OpenSearch, MinIO, Twilio, WhatsApp Cloud API, Docker, Turborepo",
     cta: "Explore",
-    },*/
+  },
 ] as const;
 
 export const awards = [
@@ -380,6 +400,11 @@ export const gear = [
 ] as const;
 
 export const news = [
+  {
+    date: "NOV 2026",
+    headline: "HQ gets a pixel makeover — TEEMS & CloudBridge join the board",
+    body: "The site now runs like a little pixel office. Two new builds on the project board: TEEMS (HR & payroll) and CloudBridge (multi-cloud ops). IDAM moves to the back shelf; the SOC lab is off the wall for now.",
+  },
   {
     date: "OCT 2026",
     headline: "Gemini 4 Argon ships for everyone",

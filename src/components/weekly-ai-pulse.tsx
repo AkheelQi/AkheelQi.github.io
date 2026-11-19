@@ -10,7 +10,7 @@ type AiStory = {
 
 const pollinationsFallback = (title: string) =>
   `https://image.pollinations.ai/prompt/${encodeURIComponent(
-    `${title}, dramatic retro gold and black editorial collage, grainy`,
+    `${title}, retro pixel art editorial illustration, 8-bit, dark background`,
   )}?width=600&height=800&nologo=true`;
 
 function SkeletonCard() {

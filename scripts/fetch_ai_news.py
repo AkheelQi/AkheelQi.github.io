@@ -33,6 +33,12 @@ FEEDS = [
     "https://huggingface.co/blog/feed.xml",
 ]
 
+# Keyless fallback source: HN Algolia API (JSON, no auth, always fresh).
+HN_API = (
+    "https://hn.algolia.com/api/v1/search_by_date"
+    "?query=AI&tags=story&numericFilters=points%3E40&hitsPerPage=30"
+)
+
 ROOT = Path(__file__).resolve().parent.parent
 OUT_PATHS = [ROOT / "data" / "ai-news.json", ROOT / "public" / "data" / "ai-news.json"]
 
@@ -112,6 +118,29 @@ def parse_feed(data: bytes) -> list[dict]:
     return items
 
 
+def fetch_hn() -> list[dict]:
+    """Fresh AI stories from the Hacker News Algolia API (no key needed)."""
+    try:
+        data = json.loads(http_get(HN_API, timeout=20))
+    except Exception as exc:  # noqa: BLE001 — fallback source must never kill the run
+        print(f"[fetch_ai_news] HN fallback failed: {exc}", file=sys.stderr)
+        return []
+    items: list[dict] = []
+    for h in data.get("hits", []):
+        title = strip_tags(h.get("title") or "")
+        if not title:
+            continue
+        link = h.get("url") or f"https://news.ycombinator.com/item?id={h.get('objectID', '')}"
+        summary = (
+            f"{h.get('points', 0)} points and {h.get('num_comments', 0)} comments "
+            "on Hacker News."
+        )
+        items.append(
+            {"title": title, "link": link.strip(), "summary": summary, "date": parse_date(h.get("created_at"))}
+        )
+    return items
+
+
 def score(item: dict, now: dt.datetime) -> float:
     s = 0.0
     d = item.get("date")
@@ -177,7 +206,7 @@ def og_image(url: str) -> str | None:
 
 
 def pollinations_fallback(title: str) -> str:
-    prompt = urllib.parse.quote(f"{title}, dramatic retro gold and black editorial collage, grainy")
+    prompt = urllib.parse.quote(f"{title}, retro pixel art editorial illustration, 8-bit, dark background")
     return f"https://image.pollinations.ai/prompt/{prompt}?width=600&height=800&nologo=true"
 
 
@@ -310,6 +339,14 @@ def main() -> int:
                 continue
             seen_links.add(it["link"])
             candidates.append(it)
+
+    # Merge the keyless HN source so the dispatch stays fresh even when the
+    # RSS feeds are stale or blocked on CI runners.
+    for it in fetch_hn():
+        if it["link"] in seen_links:
+            continue
+        seen_links.add(it["link"])
+        candidates.append(it)
 
     if not candidates:
         print("[fetch_ai_news] no candidates from any feed", file=sys.stderr)

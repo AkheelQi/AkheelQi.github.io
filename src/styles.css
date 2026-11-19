@@ -1,23 +1,43 @@
 @import "tailwindcss";
 
-@theme {
-  --color-ink: #050505;
-  --color-ink-soft: #12100c;
-  --color-gold: #c9a227;
-  --color-gold-bright: #f0d060;
-  --color-cream: #f3e6c4;
-  --color-oxblood: #6b1c23;
-  --color-muted: #8a7340;
+/* ── AKHEEL HQ · pixel-office design system ───────────────────────────────
+ * Flat fills, hard 3px outlines, offset block shadows, pixel type.
+ * Reference language: famapp.in/careers (FamHQ) — content is all our own.
+ */
 
-  --font-display: "Special Elite", "Courier New", cursive;
-  --font-body: "Special Elite", "Courier New", cursive;
+@theme {
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #141414;
+  --color-outline: #101018;
+  --color-gold: #e8a23a;
+  --color-gold-bright: #ffc23d;
+  --color-amber: #faa629;
+  --color-cream: #fff7e3;
+  --color-paper: #fbf3df;
+  --color-oxblood: #e8643f;
+  --color-muted: #9aa6bf;
+  --color-brick: #8a3b32;
+  --color-brick-dark: #5e2a24;
+  --color-wood: #7a4a2e;
+  --color-wood-light: #b87333;
+  --color-tile: #b9c0c4;
+  --color-tan: #d8c79a;
+  --color-cork: #c79b6a;
+  --color-plant: #2f8a63;
+  --color-night: #05070d;
+  --color-neon-pink: #ff5fa2;
+  --color-neon-cyan: #4fe3e0;
+
+  --font-display: "Pixelify Sans", "Courier New", ui-monospace, monospace;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-script: "Sacramento", cursive;
 
   --radius-xs: 0px;
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 8px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
 
-  --shadow-gold: 0 0 24px color-mix(in oklab, var(--color-gold) 35%, transparent);
+  --shadow-gold: 5px 5px 0 var(--color-outline);
 
   --space-1: 4px;
   --space-2: 8px;
@@ -28,11 +48,11 @@
   --space-7: 48px;
   --space-8: 64px;
 
-  --text-2xs: 0.65rem;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
+  --text-2xs: 0.7rem;
+  --text-xs: 0.8rem;
+  --text-sm: 0.9rem;
   --text-base: 1rem;
-  --text-lg: 1.125rem;
+  --text-lg: 1.15rem;
   --text-xl: 1.5rem;
   --text-2xl: 2rem;
   --text-3xl: clamp(2.25rem, 6vw, 4.5rem);
@@ -74,7 +94,7 @@
   h3 {
     font-family: var(--font-display);
     text-wrap: balance;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
   }
 
   p {
@@ -91,26 +111,18 @@
   }
 
   ::selection {
-    background: var(--color-gold);
-    color: var(--color-ink);
+    background: var(--color-gold-bright);
+    color: var(--color-outline);
   }
 }
 
 @layer components {
+  /* Pixel wordmark — flat amber with a hard block shadow. */
   .gold-foil {
-    background-image: linear-gradient(
-      180deg,
-      #fff6d4 0%,
-      var(--color-cream) 18%,
-      var(--color-gold-bright) 42%,
-      var(--color-gold) 58%,
-      #8a6b16 72%,
-      var(--color-gold-bright) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 1px 0 #7a5a12) drop-shadow(0 0 12px color-mix(in oklab, var(--color-gold-bright) 45%, transparent));
+    color: var(--color-gold-bright);
+    text-shadow:
+      3px 3px 0 var(--color-outline),
+      6px 6px 0 color-mix(in oklab, var(--color-brick) 65%, transparent);
   }
 
   .gold-glow {
@@ -118,70 +130,112 @@
     text-shadow: 0 0 14px color-mix(in oklab, var(--color-gold) 55%, transparent);
   }
 
+  /* Chunky pixel button (primary = mustard). */
   .bevel {
-    background-image: linear-gradient(
-      180deg,
-      var(--color-gold-bright),
-      var(--color-gold) 48%,
-      #8a6b16
-    );
-    color: var(--color-ink);
-    border-width: 3px;
-    border-style: solid;
-    border-color: var(--color-cream) #5c4810 #5c4810 var(--color-cream);
-    box-shadow: 2px 2px 0 #1a1404;
+    background: var(--color-gold-bright);
+    color: var(--color-outline);
+    border: 3px solid var(--color-outline);
+    border-radius: 0;
+    box-shadow: 4px 4px 0 var(--color-outline);
+    font-family: var(--font-display);
+    transition:
+      transform var(--motion-quick) var(--ease-out),
+      box-shadow var(--motion-quick) var(--ease-out),
+      filter var(--motion-quick) var(--ease-out);
   }
 
   .bevel:hover {
-    filter: brightness(1.08);
+    filter: brightness(1.06);
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--color-outline);
   }
 
   .bevel:active {
-    transform: translate(1px, 1px);
-    box-shadow: none;
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--color-outline);
+  }
+
+  /* Cream ghost variant. */
+  .bevel-ghost {
+    background: var(--color-cream);
+    color: var(--color-outline);
+    border: 3px solid var(--color-outline);
+    border-radius: 0;
+    box-shadow: 4px 4px 0 var(--color-outline);
+    font-family: var(--font-display);
+    transition:
+      transform var(--motion-quick) var(--ease-out),
+      box-shadow var(--motion-quick) var(--ease-out);
+  }
+
+  .bevel-ghost:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--color-outline);
+  }
+
+  .bevel-ghost:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--color-outline);
+  }
+
+  /* Orange “press start” variant. */
+  .bevel-start {
+    background: var(--color-amber);
+    color: var(--color-outline);
+    border: 3px solid var(--color-outline);
+    border-radius: 0;
+    box-shadow: 4px 4px 0 var(--color-outline);
+    font-family: var(--font-display);
+  }
+
+  .bevel-start:hover {
+    filter: brightness(1.06);
+  }
+
+  .bevel-start:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--color-outline);
   }
 
   .inset-field {
-    background: var(--color-ink);
-    color: var(--color-cream);
-    border-width: 2px;
-    border-style: solid;
-    border-color: #2a2418 var(--color-gold) var(--color-gold) #2a2418;
-    box-shadow: inset 2px 2px 0 #000;
+    background: #fffdf5;
+    color: var(--color-outline);
+    border: 3px solid var(--color-outline);
+    border-radius: 0;
+    box-shadow: inset 2px 2px 0 rgba(16, 16, 24, 0.18);
     appearance: none;
   }
 
   .inset-field::placeholder {
-    color: var(--color-muted);
+    color: #8d8672;
   }
 
   .gold-rule {
-    height: 2px;
+    height: 4px;
     border: 0;
-    background: linear-gradient(
+    background: repeating-linear-gradient(
       90deg,
-      transparent,
-      var(--color-gold) 20%,
-      var(--color-gold-bright) 50%,
-      var(--color-gold) 80%,
-      transparent
+      var(--color-gold) 0 14px,
+      transparent 14px 22px
     );
   }
 
+  /* Night-sky star field (splash + page backdrop). */
   .star-field {
-    background-color: var(--color-ink);
+    background-color: var(--color-night);
     background-image:
-      radial-gradient(1px 1px at 12% 18%, var(--color-cream) 50%, transparent 51%),
-      radial-gradient(1px 1px at 28% 72%, var(--color-gold) 50%, transparent 51%),
-      radial-gradient(1.5px 1.5px at 44% 32%, var(--color-cream) 50%, transparent 51%),
-      radial-gradient(1px 1px at 63% 14%, var(--color-gold-bright) 50%, transparent 51%),
-      radial-gradient(1px 1px at 71% 81%, var(--color-cream) 50%, transparent 51%),
-      radial-gradient(1.5px 1.5px at 88% 41%, var(--color-gold) 50%, transparent 51%),
-      radial-gradient(1px 1px at 9% 91%, var(--color-gold-bright) 50%, transparent 51%),
-      radial-gradient(1px 1px at 52% 58%, var(--color-cream) 50%, transparent 51%),
-      radial-gradient(1px 1px at 81% 9%, var(--color-gold) 50%, transparent 51%),
-      radial-gradient(1px 1px at 33% 8%, var(--color-cream) 50%, transparent 51%);
-    background-size: 220px 220px, 280px 280px, 180px 180px, 260px 260px, 200px 200px,
+      radial-gradient(1px 1px at 12% 18%, #ffffff 50%, transparent 51%),
+      radial-gradient(1px 1px at 28% 72%, var(--color-muted) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 44% 32%, #ffffff 50%, transparent 51%),
+      radial-gradient(1px 1px at 63% 14%, var(--color-muted) 50%, transparent 51%),
+      radial-gradient(1px 1px at 71% 81%, #ffffff 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 88% 41%, var(--color-muted) 50%, transparent 51%),
+      radial-gradient(1px 1px at 9% 91%, #ffffff 50%, transparent 51%),
+      radial-gradient(1px 1px at 52% 58%, var(--color-muted) 50%, transparent 51%),
+      radial-gradient(1px 1px at 81% 9%, #ffffff 50%, transparent 51%),
+      radial-gradient(1px 1px at 33% 8%, var(--color-muted) 50%, transparent 51%);
+    background-size:
+      220px 220px, 280px 280px, 180px 180px, 260px 260px, 200px 200px,
       240px 240px, 300px 300px, 160px 160px, 210px 210px, 190px 190px;
   }
 
@@ -195,13 +249,11 @@
     );
   }
 
+  /* Pixel “sticker” frame for images & cards. */
   .frame-gold {
-    border: 6px solid var(--color-gold);
-    box-shadow:
-      0 0 0 2px #7a5a12,
-      0 0 0 3px var(--color-gold-bright),
-      4px 8px 0 color-mix(in oklab, black 70%, transparent);
-    background: var(--color-ink);
+    border: 3px solid var(--color-outline);
+    box-shadow: 5px 5px 0 var(--color-outline);
+    background: var(--color-paper);
   }
 
   .blink {
@@ -215,6 +267,160 @@
   .eq-bar {
     animation: eq 0.9s ease-in-out infinite;
     transform-origin: bottom;
+  }
+
+  /* ── HQ map surfaces ── */
+
+  .pixel-panel {
+    background: var(--color-cream);
+    color: var(--color-outline);
+    border: 3px solid var(--color-outline);
+    box-shadow: 6px 6px 0 var(--color-outline);
+  }
+
+  .pixel-panel-dark {
+    background: var(--color-ink-soft);
+    border: 3px solid var(--color-outline);
+    box-shadow: 6px 6px 0 color-mix(in oklab, black 80%, transparent);
+  }
+
+  .pixel-plaque {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--color-cream);
+    color: var(--color-outline);
+    border: 2px solid var(--color-outline);
+    box-shadow: 3px 3px 0 var(--color-outline);
+    font-family: var(--font-display);
+    padding: 2px 8px;
+    line-height: 1.4;
+  }
+
+  .pixel-tag {
+    display: inline-block;
+    background: #ffffff;
+    color: var(--color-outline);
+    border: 2px solid var(--color-outline);
+    box-shadow: 2px 2px 0 var(--color-outline);
+    font-family: var(--font-display);
+    padding: 1px 6px;
+    line-height: 1.35;
+  }
+
+  .brick-wall {
+    background-color: var(--color-brick);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32'%3E%3Crect width='64' height='32' fill='%238a3b32'/%3E%3Cpath d='M0 0h64v3H0zM0 16h64v3H0zM31 3h3v13h-3zM0 19h3v13H0zM61 19h3v13h-3z' fill='%235e2a24'/%3E%3Crect x='4' y='6' width='24' height='7' fill='%2394443a'/%3E%3Crect x='36' y='6' width='24' height='7' fill='%238f4036'/%3E%3Crect x='8' y='22' width='24' height='7' fill='%2394443a'/%3E%3Crect x='40' y='22' width='18' height='7' fill='%238f4036'/%3E%3C/svg%3E");
+    background-size: 64px 32px;
+    image-rendering: pixelated;
+  }
+
+  .wood-floor {
+    background-color: var(--color-wood);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0 21px,
+        #5c3620 21px 24px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 95px,
+        #5c3620 95px 98px
+      );
+    image-rendering: pixelated;
+  }
+
+  .tile-floor {
+    background: repeating-conic-gradient(#b9c0c4 0% 25%, #a7afb4 0% 50%) 0 0 / 48px 48px;
+    image-rendering: pixelated;
+  }
+
+  .tan-floor {
+    background: repeating-conic-gradient(#d8c79a 0% 25%, #c9b784 0% 50%) 0 0 / 48px 48px;
+    image-rendering: pixelated;
+  }
+
+  .cork-board {
+    background-color: var(--color-cork);
+    background-image:
+      radial-gradient(2px 2px at 18% 24%, #a97e4f 50%, transparent 51%),
+      radial-gradient(2px 2px at 64% 68%, #a97e4f 50%, transparent 51%),
+      radial-gradient(2px 2px at 82% 22%, #b58a58 50%, transparent 51%),
+      radial-gradient(2px 2px at 38% 82%, #a97e4f 50%, transparent 51%);
+    background-size: 90px 90px, 120px 120px, 100px 100px, 80px 80px;
+    border: 4px solid var(--color-wood);
+    box-shadow:
+      inset 0 0 0 2px #4a2e1a,
+      4px 4px 0 var(--color-outline);
+  }
+
+  .neon-board {
+    background-color: #241f33;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 11px, #322b47 11px 12px),
+      repeating-linear-gradient(90deg, transparent 0 11px, #322b47 11px 12px);
+    border: 3px solid var(--color-outline);
+    box-shadow: 4px 4px 0 var(--color-outline);
+  }
+
+  .neon-text {
+    font-family: var(--font-script);
+    color: #ffd9ec;
+    text-shadow:
+      0 0 6px var(--color-neon-pink),
+      0 0 18px var(--color-neon-pink),
+      0 0 42px color-mix(in oklab, var(--color-neon-pink) 65%, transparent);
+    animation: neon-flicker 4.2s linear infinite;
+  }
+
+  .neon-text-cyan {
+    color: #d8fbfa;
+    text-shadow:
+      0 0 6px var(--color-neon-cyan),
+      0 0 18px var(--color-neon-cyan),
+      0 0 42px color-mix(in oklab, var(--color-neon-cyan) 65%, transparent);
+  }
+
+  .room {
+    position: relative;
+    border: 3px solid var(--color-outline);
+    box-shadow: 5px 5px 0 var(--color-outline);
+    overflow: hidden;
+    transition:
+      transform var(--motion-quick) var(--ease-out),
+      box-shadow var(--motion-quick) var(--ease-out);
+  }
+
+  a.room:hover,
+  button.room:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--color-outline);
+  }
+
+  a.room:active,
+  button.room:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-outline);
+  }
+
+  .pixel-coin {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: var(--color-gold-bright);
+    border: 2px solid #8a6b16;
+    box-shadow: inset -2px -2px 0 #c98f2b;
+  }
+
+  .night-sky {
+    background: linear-gradient(180deg, #04060f 0%, #071021 55%, #0b1c3f 100%);
+  }
+
+  .pixel-sprite {
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
   }
 }
 
@@ -259,12 +465,48 @@
   }
 }
 
+@keyframes neon-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.6;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.75;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .marquee-track {
   animation: marquee 28s linear infinite;
 }
 
 .sparkle-dot {
   animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.float-y {
+  animation: float-y 3.2s ease-in-out infinite;
 }
 
 .crt-fringe {
@@ -299,7 +541,9 @@
     0 0 14px 3px rgba(255, 255, 255, 0.95),
     0 0 60px 12px rgba(255, 255, 255, 0.45);
   transform: translate(-50%, -50%);
-  transition: width 0.16s ease-out, opacity 0.45s ease-in;
+  transition:
+    width 0.16s ease-out,
+    opacity 0.45s ease-in;
 }
 
 .crt-power-beam.on {
@@ -318,12 +562,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(25%) contrast(110%) brightness(85%);
-  transition: filter 0.3s ease, transform 0.3s ease;
+  filter: contrast(105%) brightness(92%);
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
 }
 
 .ai-card-frame:hover .ai-card-image {
-  filter: sepia(0%) contrast(100%) brightness(100%);
+  filter: contrast(100%) brightness(100%);
   transform: scale(1.03);
 }
 
@@ -335,7 +581,7 @@
   justify-content: flex-end;
   gap: 0.5rem;
   padding: 0.75rem;
-  background: color-mix(in oklab, var(--color-ink) 94%, transparent);
+  background: color-mix(in oklab, var(--color-outline) 92%, transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -362,7 +608,9 @@
   .spin-slow,
   .eq-bar,
   .marquee-track,
-  .sparkle-dot {
+  .sparkle-dot,
+  .float-y,
+  .neon-text {
     animation: none;
   }
 }
@@ -380,7 +628,7 @@
 @media (pointer: coarse) {
   a,
   button {
-    -webkit-tap-highlight-color: rgba(212, 175, 55, 0.28);
+    -webkit-tap-highlight-color: rgba(255, 194, 61, 0.28);
   }
 
   .nav-link {

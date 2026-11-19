@@ -11,7 +11,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
-      { name: "theme-color", content: "#050505" },
+      { name: "theme-color", content: "#0a0a0a" },
       {
         name: "description",
         content:
@@ -27,7 +27,7 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Special+Elite&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Instrument+Sans:wght@400;500;600&family=Sacramento&display=swap",
       },
     ],
   }),
